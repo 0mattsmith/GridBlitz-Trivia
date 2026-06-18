@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { apiFetch } from '../lib/api';
 import { CareerPathPlayer, CareerPathItem, CareerPathSetup } from '../types';
 import { Loader2, ArrowRight, Eye, RefreshCw, AlertCircle, CheckCircle, Info, Landmark, HelpCircle, ToggleLeft, ToggleRight, Trophy, Users, User } from 'lucide-react';
-import { getPlayerPhoto, getFlagUrl, getTrophyPhoto } from '../lib/images';
+import { getPlayerPhoto, getFlagUrl, getTrophyPhoto, getClubLogo } from '../lib/images';
 import { SafeImage } from './SafeImage';
 
 export default function CareerPathGame({ theme = "football" }: { theme?: 'football' | 'music' | 'movies' }) {
@@ -503,8 +503,18 @@ export default function CareerPathGame({ theme = "football" }: { theme?: 'footba
                         {/* Team (Redacted blocks) */}
                         <td className="py-2 px-1 font-semibold text-stone-800 tracking-tight relative">
                           {isRowRevealed ? (
-                            <span className="text-[#0645ad] hover:underline font-bold">
-                              {item.club}
+                            <span className="text-[#0645ad] hover:underline font-bold flex items-center gap-1.5">
+                              {theme === 'football' && (
+                                <SafeImage
+                                  src={getClubLogo(item.club, theme)}
+                                  alt={item.club}
+                                  className="w-4 h-4 rounded-full object-contain border border-stone-250 bg-white p-0.5 shadow-xxs shrink-0"
+                                  fallbackType="league"
+                                  fallbackName={item.club}
+                                  theme={theme}
+                                />
+                              )}
+                              <span className="truncate">{item.club}</span>
                             </span>
                           ) : (
                             <span className="bg-stone-300 border border-stone-400 text-[9px] text-stone-600 px-1 py-0.5 rounded italic">

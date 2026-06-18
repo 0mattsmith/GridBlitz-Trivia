@@ -178,5 +178,65 @@
     "trophies": ["World Cup", "Champions League", "La Liga", "Bundesliga", "DFB Pokal", "Copa del Rey", "FIFA Club World Cup", "UEFA Champions League"],
     "leagues": ["Bundesliga", "La Liga"],
     "partners": ["Cristiano Ronaldo", "Karim Benzema", "Gareth Bale", "Luka Modric", "Casemiro", "Sergio Ramos", "Marcelo", "Thibaut Courtois", "Vinicius Junior", "Rodrygo", "Thomas Muller", "Manuel Neuer", "Philipp Lahm", "Bastian Schweinsteiger", "Arjen Robben", "Franck Ribery"]
+  },
+  {
+    "name": "Mario Balotelli",
+    "synonyms": ["balotelli", "mario balotelli", "m. balotelli"],
+    "nationality": "Italy",
+    "clubs": ["Lumezzane", "Inter", "Inter Milan", "Internazionale", "Manchester City", "AC Milan", "Milan", "Liverpool", "Nice", "Marseille", "Brescia", "Monza", "Adana Demirspor", "Sion", "FC Sion", "Genoa"],
+    "managers": ["Roberto Mancini", "Jose Mourinho", "Massimiliano Allegri", "Clarence Seedorf", "Filippo Inzaghi", "Brendan Rodgers", "Lucien Favre", "Patrick Vieira", "Cesare Prandelli"],
+    "trophies": ["Premier League", "Serie A", "Champions League", "Coppa Italia", "FA Cup", "Supercoppa Italiana", "UEFA Champions League"],
+    "leagues": ["Serie A", "Premier League", "Ligue 1", "Super League", "Süper Lig"],
+    "partners": ["Zlatan Ibrahimovic", "Javier Zanetti", "Dejan Stankovic", "Wesley Sneijder", "Samuel Eto'o", "Sergio Aguero", "David Silva", "Yaya Toure", "Vincent Kompany", "Stephan El Shaarawy", "Kaka", "Robinho", "Steven Gerrard", "Raheem Sterling", "Andrea Pirlo", "Antonio Cassano"]
+  },
+  {
+    "name": "Andrea Pirlo",
+    "synonyms": ["pirlo", "andrea pirlo", "a. pirlo"],
+    "nationality": "Italy",
+    "clubs": ["Brescia", "Reggina", "Inter", "Inter Milan", "Internazionale", "AC Milan", "Milan", "Juventus", "New York City", "New York City FC"],
+    "managers": ["Mircea Lucescu", "Marcello Lippi", "Carlo Ancelotti", "Antonio Conte", "Massimiliano Allegri", "Cesare Prandelli", "Giovanni Trapattoni", "Roberto Donadoni", "Patrick Vieira"],
+    "trophies": ["World Cup", "Champions League", "Serie A", "Coppa Italia", "Supercoppa Italiana", "UEFA Champions League", "FIFA Club World Cup"],
+    "leagues": ["Serie A", "MLS", "Major League Soccer"],
+    "partners": ["Kaka", "Clarence Seedorf", "Gennaro Gattuso", "Filippo Inzaghi", "Andriy Shevchenko", "Alessandro Nesta", "Paolo Maldini", "Gianluigi Buffon", "Alessandro Del Piero", "Francesco Totti", "Arturo Vidal", "Paul Pogba", "Claudio Marchisio", "Carlos Tevez", "David Villa", "Frank Lampard"]
+  },
+  {
+    "name": "Clarence Seedorf",
+    "synonyms": ["seedorf", "clarence seedorf", "c. seedorf"],
+    "nationality": "Netherlands",
+    "clubs": ["Ajax", "Sampdoria", "Real Madrid", "Inter", "Inter Milan", "Internazionale", "AC Milan", "Milan", "Botafogo"],
+    "managers": ["Louis van Gaal", "Jupp Heynckes", "Guus Hiddink", "Marcello Lippi", "Carlo Ancelotti", "Massimiliano Allegri", "Frank Rijkaard", "Dick Advocaat"],
+    "trophies": ["Champions League", "La Liga", "Serie A", "Eredivisie", "Coppa Italia", "UEFA Champions League", "FIFA Club World Cup", "Intercontinental Cup"],
+    "leagues": ["Eredivisie", "La Liga", "Serie A", "Campeonato Brasileiro"],
+    "partners": ["Andrea Pirlo", "Kaka", "Gennaro Gattuso", "Andriy Shevchenko", "Filippo Inzaghi", "Alessandro Nesta", "Paolo Maldini", "Ronaldo", "Ronaldo Nazario", "Ruud van Nistelrooy", "Patrick Kluivert", "Edgar Davids", "Edwin van der Sar", "Dennis Bergkamp", "Javier Zanetti", "Christian Vieri"]
+  },
+  {
+    "name": "Hakan Calhanoglu",
+    "synonyms": ["calhanoglu", "hakan calhanoglu", "h. calhanoglu"],
+    "nationality": "Turkey",
+    "clubs": ["Karlsruher SC", "Hamburger SV", "Bayer Leverkusen", "AC Milan", "Milan", "Inter", "Inter Milan", "Internazionale"],
+    "managers": ["Roger Schmidt", "Vincenzo Montella", "Gennaro Gattuso", "Stefano Pioli", "Simone Inzaghi", "Senol Gunes", "Vincenzo Montella (manager)"],
+    "trophies": ["Serie A", "Coppa Italia", "Supercoppa Italiana"],
+    "leagues": ["Bundesliga", "Serie A"],
+    "partners": ["Zlatan Ibrahimovic", "Gianluigi Donnarumma", "Theo Hernandez", "Franck Kessie", "Lautaro Martinez", "Nicolo Barella", "Marcus Thuram", "Federico Dimarco", "Alessandro Bastoni", "Henrikh Mkhitaryan", "Romelu Lukaku", "Edin Dzeko", "Arda Guler"]
+  },
+  {
+    "name": "Ronaldo",
+    "synonyms": ["ronaldo nazario", "r9", "ronaldo fenomene", "ronaldo", "r. nazario", "ronaldo luis nazario de lima"],
+    "nationality": "Brazil",
+    "clubs": ["Cruzeiro", "PSV", "PSV Eindhoven", "Barcelona", "FC Barcelona", "Inter", "Inter Milan", "Internazionale", "Real Madrid", "AC Milan", "Milan", "Corinthians"],
+    "managers": ["Bobby Robson", "Luigi Simoni", "Marcello Lippi", "Vicente del Bosque", "Fabio Capello", "Mario Zagallo", "Luiz Felipe Scolari", "Carlos Alberto Parreira"],
+    "trophies": ["World Cup", "Copa America", "La Liga", "UEFA Cup", "Copa del Rey", "FIFA Club World Cup", "Eredivisie", "Ballon d'Or"],
+    "leagues": ["Campeonato Brasileiro", "Eredivisie", "La Liga", "Serie A"],
+    "partners": ["Zinedine Zidane", "Luis Figo", "Raul Gonzalez", "Roberto Carlos", "David Beckham", "Iker Casillas", "Ronaldinho", "Rivaldo", "Kaka", "Clarence Seedorf", "Andrea Pirlo", "Filippo Inzaghi", "Christian Vieri", "Javier Zanetti", "Ivan Zamorano"]
+  },
+  {
+    "name": "Zlatan Ibrahimovic",
+    "synonyms": ["zlatan", "ibrahimovic", "zlatan ibrahimovic", "z. ibrahimovic"],
+    "nationality": "Sweden",
+    "clubs": ["Malmo FF", "Ajax", "Juventus", "Inter", "Inter Milan", "Internazionale", "Barcelona", "FC Barcelona", "AC Milan", "Milan", "PSG", "Paris Saint-Germain", "Manchester United", "LA Galaxy"],
+    "managers": ["Ronald Koeman", "Fabio Capello", "Roberto Mancini", "Jose Mourinho", "Pep Guardiola", "Massimiliano Allegri", "Laurent Blanc", "Stefano Pioli"],
+    "trophies": ["Eredivisie", "Serie A", "La Liga", "Ligue 1", "Europa League", "Coppa Italia", "Copa del Rey", "FIFA Club World Cup", "UEFA Europa League"],
+    "leagues": ["Allsvenskan", "Eredivisie", "Serie A", "La Liga", "Ligue 1", "Premier League", "MLS", "Major League Soccer"],
+    "partners": ["Lionel Messi", "Andres Iniesta", "Xavi", "Neymar", "Thiago Silva", "Edinson Cavani", "Paul Pogba", "Marcus Rashford", "Theo Hernandez", "Rafael Leao", "Olivier Giroud", "Gianluigi Donnarumma", "Javier Zanetti", "Adriano", "Samuel Eto'o", "Mario Balotelli", "Kaka", "Ronaldinho", "Robinho", "Gennaro Gattuso"]
   }
 ]

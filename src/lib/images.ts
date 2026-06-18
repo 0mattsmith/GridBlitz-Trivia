@@ -368,6 +368,22 @@ export const CLUB_LOGOS: { [key: string]: string } = {
   "ajax": "https://upload.wikimedia.org/wikipedia/en/7/79/Ajax_Amsterdam.svg",
   "nottingham forest": "https://upload.wikimedia.org/wikipedia/en/e/e5/Nottingham_Forest_F.C._logo.svg",
   "aston villa": "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282016%29.svg",
+  "al ittihad": "https://upload.wikimedia.org/wikipedia/en/2/2a/Al-Ittihad_Saudi_Club_logo.svg",
+  "al-ittihad": "https://upload.wikimedia.org/wikipedia/en/2/2a/Al-Ittihad_Saudi_Club_logo.svg",
+  "new york city fc": "https://upload.wikimedia.org/wikipedia/en/f/f6/New_York_City_FC_badge.svg",
+  "new york city": "https://upload.wikimedia.org/wikipedia/en/f/f6/New_York_City_FC_badge.svg",
+  "new york red bulls": "https://upload.wikimedia.org/wikipedia/en/1/14/New_York_Red_Bulls_logo.svg",
+  "west ham united": "https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg",
+  "monaco": "https://upload.wikimedia.org/wikipedia/en/a/ad/AS_Monaco_FC_crest.svg",
+  "monaco fc": "https://upload.wikimedia.org/wikipedia/en/a/ad/AS_Monaco_FC_crest.svg",
+  "salzburg": "https://upload.wikimedia.org/wikipedia/en/8/80/FC_Red_Bull_Salzburg_logo.svg",
+  "red bull salzburg": "https://upload.wikimedia.org/wikipedia/en/8/80/FC_Red_Bull_Salzburg_logo.svg",
+  "dortmund": "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg",
+  "molde": "https://upload.wikimedia.org/wikipedia/en/3/3a/Molde_FK_logo.svg",
+  "werder bremen": "https://upload.wikimedia.org/wikipedia/en/b/be/SV-Werder-Bremen-Logo.svg",
+  "wolfsburg": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Logo_VfL_Wolfsburg.svg",
+  "borussia wolfsburg": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Logo_VfL_Wolfsburg.svg",
+  "genk": "https://upload.wikimedia.org/wikipedia/en/c/cd/KRC_Genk_logo.svg",
 };
 
 export function getClubLogo(clubName: string, theme?: string): string {

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { apiFetch } from '../lib/api';
 import { GridCriteria, GridCellState, GridSetup } from '../types';
 import { HelpCircle, RefreshCw, User, Users, CheckCircle, XCircle, Info, Loader2, ArrowRight, Trophy } from 'lucide-react';
-import { getFlagUrl, getPlayerPhoto, getManagerPhoto, getLeagueLogo, getTrophyPhoto } from '../lib/images';
+import { getFlagUrl, getPlayerPhoto, getManagerPhoto, getLeagueLogo, getTrophyPhoto, getClubLogo } from '../lib/images';
 import { SafeImage } from './SafeImage';
 
 export default function TicTacToeGame({ theme = "football" }: { theme?: 'football' | 'music' | 'movies' }) {
@@ -368,6 +368,20 @@ export default function TicTacToeGame({ theme = "football" }: { theme?: 'footbal
           className="w-7 h-7 rounded-full object-contain border border-slate-300 bg-white p-0.5 shadow-xxs shrink-0 mt-1 mb-1.5" 
           fallbackType="league"
           fallbackName={val}
+        />
+      );
+    }
+
+    // Professional club crest visual
+    if (t === "club" || t === "team") {
+      return (
+        <SafeImage 
+          src={getClubLogo(val, theme)} 
+          alt={val} 
+          className="w-7 h-7 rounded-full object-contain border border-slate-300 bg-white p-0.5 shadow-xxs shrink-0 mt-1 mb-1.5" 
+          fallbackType="league"
+          fallbackName={val}
+          theme={theme}
         />
       );
     }
