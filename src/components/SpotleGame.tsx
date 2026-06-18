@@ -7,6 +7,7 @@ import {
   MapPin, Clock, Star, Flame, Eye, Sparkles, User, Users, Compass, CheckCircle2, ChevronRight, AlertCircle, RefreshCcw
 } from 'lucide-react';
 import { getPlayerPhoto, getFlagUrl } from '../lib/images';
+import { SafeImage } from './SafeImage';
 
 // Clue Entity Interface
 interface SpotleEntity {
@@ -454,10 +455,12 @@ export default function SpotleGame({ theme = 'football' }: { theme?: 'football' 
                             className="w-full text-left px-4 py-2.5 hover:bg-slate-50 text-sm font-semibold text-slate-800 flex items-center justify-between border-b border-slate-50 last:border-0 cursor-pointer"
                           >
                             <div className="flex items-center space-x-3">
-                              <img
+                              <SafeImage
                                 src={getPlayerPhoto(item.name, theme)}
                                 alt={item.name}
-                                referrerPolicy="no-referrer"
+                                fallbackType="player"
+                                fallbackName={item.name}
+                                theme={theme}
                                 className="w-7 h-7 rounded-full object-cover border border-slate-100"
                               />
                               <span>{item.name}</span>
@@ -523,10 +526,12 @@ export default function SpotleGame({ theme = 'football' }: { theme?: 'football' 
 
                 {/* Target Reveal Profile Card */}
                 <div className="bg-slate-800/80 border border-slate-700/50 rounded-xl p-4 w-full mt-4 flex flex-col items-center">
-                  <img
+                  <SafeImage
                     src={getPlayerPhoto(secret.name, theme)}
                     alt={secret.name}
-                    referrerPolicy="no-referrer"
+                    fallbackType="player"
+                    fallbackName={secret.name}
+                    theme={theme}
                     className="w-20 h-20 rounded-full object-cover border-2 border-white/15 shadow-md mb-2"
                   />
                   <h4 className="text-md font-bold text-white leading-none mb-1">
@@ -629,10 +634,12 @@ export default function SpotleGame({ theme = 'football' }: { theme?: 'football' 
                       {/* Name/Avatar Header row */}
                       <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
                         <div className="flex items-center space-x-3.5">
-                          <img
+                          <SafeImage
                             src={getPlayerPhoto(item.name, theme)}
                             alt={item.name}
-                            referrerPolicy="no-referrer"
+                            fallbackType="player"
+                            fallbackName={item.name}
+                            theme={theme}
                             className="w-9 h-9 rounded-full object-cover border border-slate-100 bg-slate-100"
                           />
                           <div>
@@ -743,13 +750,13 @@ export default function SpotleGame({ theme = 'football' }: { theme?: 'football' 
                             Nationality
                           </span>
                           <span className="text-xs sm:text-sm font-black flex items-center gap-1.5 justify-center">
-                            {getFlagUrl(item.nationality) && (
-                              <img
-                                src={getFlagUrl(item.nationality)!}
-                                alt={item.nationality}
-                                className="w-5 h-3.5 object-cover rounded shadow-xs"
-                              />
-                            )}
+                            <SafeImage
+                              src={getFlagUrl(item.nationality)}
+                              alt={item.nationality}
+                              fallbackType="flag"
+                              fallbackName={item.nationality}
+                              className="w-5 h-3.5 object-cover rounded shadow-xs shrink-0"
+                            />
                             <span className="truncate max-w-[50px] sm:max-w-none">{item.nationality}</span>
                           </span>
                         </div>

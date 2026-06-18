@@ -1,6 +1,6 @@
 // Real image and asset URLs for Football Trivia Arena
 
-// 1. Nationality country code mapper for flagcdn.com
+// 1. Nationality country code mapper for flagcdn.com (including exhaustiveness)
 export const COUNTRY_FLAG_CODES: { [key: string]: string } = {
   "portugal": "pt",
   "argentina": "ar",
@@ -42,10 +42,24 @@ export const COUNTRY_FLAG_CODES: { [key: string]: string } = {
   "new zealand": "nz",
   "austria": "at",
   "ivory coast": "ci",
-  "cote d'ivoire": "ci"
+  "cote d'ivoire": "ci",
+  "ghana": "gh",
+  "cameroon": "cm",
+  "morocco": "ma",
+  "algeria": "dz",
+  "tunisia": "tn",
+  "turkey": "tr",
+  "greece": "gr",
+  "ukraine": "ua",
+  "denmark": "dk",
+  "finland": "fi",
+  "hungary": "hu",
+  "czech republic": "cz",
+  "romania": "ro"
 };
 
-export function getFlagUrl(nationality: string): string | null {
+export function getFlagUrl(nationality: string): string {
+  if (!nationality) return "https://flagcdn.com/w40/un.png";
   const norm = nationality.toLowerCase().trim();
   const code = COUNTRY_FLAG_CODES[norm];
   if (code) {
@@ -57,27 +71,63 @@ export function getFlagUrl(nationality: string): string | null {
       return `https://flagcdn.com/w40/${COUNTRY_FLAG_CODES[country]}.png`;
     }
   }
-  return null;
+  // Return United Nations flag as standard high fidelity photographic substitute flag rather than an emoji
+  return "https://flagcdn.com/w40/un.png";
 }
 
-// 2. Wikipedia & high-quality Wikimedia Commons headshots for players, musicians, and film stars
+// 2. High-quality human photo portrait list for smart hashing fallbacks
+// This guarantees that any player, partner, or manager always gets a high fidelity human photograph representation!
+export const PORTRAIT_FALLBACKS = [
+  "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300", // Soccer Player green
+  "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300", // Professional athlete stance
+  "https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&q=80&w=300", // Athlete fitness portrait
+  "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=300", // Professional Manager/Coach looking focused
+  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300", // Manager suite portrait
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300", // Active male candidate face
+  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300", // Female athlete headshot
+  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300", // Smiling male portrait
+  "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=300", // Candid human portrait 1
+  "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=300", // Candid human portrait 2
+  "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=300", // Focused younger player face
+  "https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&q=80&w=300", // Young athletic face
+  "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=300", // Female professional director profile
+  "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=300"  // Pop artist/Musician style
+];
+
+function getDeterministicNumber(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  return Math.abs(hash);
+}
+
+export function getFallbackPortrait(name: string): string {
+  const hash = getDeterministicNumber(name);
+  const idx = hash % PORTRAIT_FALLBACKS.length;
+  return PORTRAIT_FALLBACKS[idx];
+}
+
+// 3. Wikipedia & high-quality Wikimedia Commons headshots for players, musicians, and film stars
 export const PLAYER_PHOTOS: { [key: string]: string } = {
-  // Football database players
+  // Football db players
   "messi": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg",
   "ronaldo": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg",
   "lampard": "https://upload.wikimedia.org/wikipedia/commons/6/62/Frank_Lampard_on_15_August_2018_%28cropped%29.jpg",
   "frank lampard": "https://upload.wikimedia.org/wikipedia/commons/6/62/Frank_Lampard_on_15_August_2018_%28cropped%29.jpg",
   "hazard": "https://upload.wikimedia.org/wikipedia/commons/2/23/Eden_Hazard_2018.jpg",
+  "eden hazard": "https://upload.wikimedia.org/wikipedia/commons/2/23/Eden_Hazard_2018.jpg",
   "palmer": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cole_Palmer_Chelsea_v_Burnley_2024.jpg",
   "cole palmer": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cole_Palmer_Chelsea_v_Burnley_2024.jpg",
   "haaland": "https://upload.wikimedia.org/wikipedia/commons/0/07/Erling_Haaland_2023.jpg",
+  "erling haaland": "https://upload.wikimedia.org/wikipedia/commons/0/07/Erling_Haaland_2023.jpg",
   "de bruyne": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kevin_De_Bruyne_20180609.jpg",
   "kevin de bruyne": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kevin_De_Bruyne_20180609.jpg",
   "kdb": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kevin_De_Bruyne_20180609.jpg",
   "benzema": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Karim_Benzema_v_Al-Hilal%2C_Saudi_Super_Cup_2024.jpg",
   "karim benzema": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Karim_Benzema_v_Al-Hilal%2C_Saudi_Super_Cup_2024.jpg",
   "henry": "https://upload.wikimedia.org/wikipedia/commons/5/55/Thierry_Henry_2014.jpg",
-  "thierry": "https://upload.wikimedia.org/wikipedia/commons/5/55/Thierry_Henry_2014.jpg",
+  "thierry henry": "https://upload.wikimedia.org/wikipedia/commons/5/55/Thierry_Henry_2014.jpg",
   "terry": "https://upload.wikimedia.org/wikipedia/commons/d/de/John_Terry_2017.jpg",
   "john terry": "https://upload.wikimedia.org/wikipedia/commons/d/de/John_Terry_2017.jpg",
   "drogba": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Didier_Drogba_2015_%28cropped%29.jpg",
@@ -99,19 +149,35 @@ export const PLAYER_PHOTOS: { [key: string]: string } = {
   "luka modric": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Luka_Modri%C4%87_2018.jpg",
   "kroos": "https://upload.wikimedia.org/wikipedia/commons/1/12/Toni_Kroos_2018.jpg",
   "toni kroos": "https://upload.wikimedia.org/wikipedia/commons/1/12/Toni_Kroos_2018.jpg",
-
-  // Other players / legends
   "ibrahimovic": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zlatan_Ibrahimgovic_June_2018.jpg",
   "zlatan": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zlatan_Ibrahimgovic_June_2018.jpg",
   "kane": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Harry_Kane_2018.jpg",
+  "harry kane": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Harry_Kane_2018.jpg",
   "zidane": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Zinedine_Zidane_by_Tasnim_01.jpg",
+  "zinedine zidane": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Zinedine_Zidane_by_Tasnim_01.jpg",
   "ronaldinho": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Ronaldinho_in_2019.jpg",
   "rooney": "https://upload.wikimedia.org/wikipedia/commons/1/10/Wayne_Rooney_2014.jpg",
+  "wayne rooney": "https://upload.wikimedia.org/wikipedia/commons/1/10/Wayne_Rooney_2014.jpg",
   "suarez": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Luis_Su%C3%A1rez_2018.jpg",
+  "luis suarez": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Luis_Su%C3%A1rez_2018.jpg",
   "lineker": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Gary_Lineker_sculpture_copy_copy.jpg",
+  "gary lineker": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Gary_Lineker_sculpture_copy_copy.jpg",
   "shearer": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Alan_Shearer_St_James%27_Park.jpg",
+  "alan shearer": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Alan_Shearer_St_James%27_Park.jpg",
   "bellingham": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Jude_Bellingham_2024.jpg",
+  "jude bellingham": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Jude_Bellingham_2024.jpg",
   "mbappe": "https://upload.wikimedia.org/wikipedia/commons/5/53/Kylian_Mbapp%C3%A9_Pr%C3%A9sentation_Real_Madrid_%28cropped%29.jpg",
+  "kylian mbappe": "https://upload.wikimedia.org/wikipedia/commons/5/53/Kylian_Mbapp%C3%A9_Pr%C3%A9sentation_Real_Madrid_%28cropped%29.jpg",
+  "saka": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Bukayo_Saka_at_the_2022_FIFA_World_Cup_vs_Iran_%28cropped%29.jpg",
+  "bukayo saka": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Bukayo_Saka_at_the_2022_FIFA_World_Cup_vs_Iran_%28cropped%29.jpg",
+  "foden": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Phil_Foden_2022_%28cropped%29.jpg",
+  "phil foden": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Phil_Foden_2022_%28cropped%29.jpg",
+  "iniesta": "https://upload.wikimedia.org/wikipedia/commons/6/67/Andres_Iniesta_2018.jpg",
+  "andres iniesta": "https://upload.wikimedia.org/wikipedia/commons/6/67/Andres_Iniesta_2018.jpg",
+  "xavi": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Xavi_Hernandez_with_AlSadd_Sport_Club.jpg",
+  "xavi hernandez": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Xavi_Hernandez_with_AlSadd_Sport_Club.jpg",
+  "neymar": "https://upload.wikimedia.org/wikipedia/commons/8/83/Bra-Cos_%281%29_%28cropped%29.jpg",
+  "neymar jr": "https://upload.wikimedia.org/wikipedia/commons/8/83/Bra-Cos_%281%29_%28cropped%29.jpg",
 
   // Music Artists / Bands
   "taylor swift": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Taylor_Swift_at_the_2018_American_Music_Awards_%28cropped%29.jpg",
@@ -197,26 +263,19 @@ export const PLAYER_PHOTOS: { [key: string]: string } = {
 };
 
 export function getPlayerPhoto(name: string, theme?: string): string {
+  if (!name) return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300";
   const norm = name.toLowerCase().trim();
   for (const key of Object.keys(PLAYER_PHOTOS)) {
-    if (norm === key || norm.includes(key)) {
+    if (norm === key || norm.includes(key) || key.includes(norm)) {
       return PLAYER_PHOTOS[key];
     }
   }
 
-  // Fallback high-quality theme-native Unsplash backgrounds
-  if (theme === 'music') {
-    return "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300"; // Microphone
-  }
-  if (theme === 'movies') {
-    return "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300"; // Cinema stage focus
-  }
-  
-  // Default football background
-  return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300";
+  // Use dynamic deterministic portraits so *every single player* receives an actual high quality photograph!
+  return getFallbackPortrait(name);
 }
 
-// 3. Manager / Director / Legend photos
+// 4. Manager / Director / Legend photos
 export const MANAGER_PHOTOS: { [key: string]: string } = {
   // Football
   "mourinho": "https://upload.wikimedia.org/wikipedia/commons/8/80/Jos%C3%A9_Mourinho_August_2020.jpg",
@@ -234,8 +293,11 @@ export const MANAGER_PHOTOS: { [key: string]: string } = {
   "conte": "https://upload.wikimedia.org/wikipedia/commons/2/27/Antonio_Conte_2017.jpg",
   "antonio conte": "https://upload.wikimedia.org/wikipedia/commons/2/27/Antonio_Conte_2017.jpg",
   "solskjaer": "https://upload.wikimedia.org/wikipedia/commons/a/af/Ole_Gunnar_Solskj%C3%A6r_2019_%28cropped%29.jpg",
+  "ole gunnar solskjaer": "https://upload.wikimedia.org/wikipedia/commons/a/af/Ole_Gunnar_Solskj%C3%A6r_2019_%28cropped%29.jpg",
   "tuchel": "https://upload.wikimedia.org/wikipedia/commons/d/df/Thomas_Tuchel_2020.jpg",
+  "thomas tuchel": "https://upload.wikimedia.org/wikipedia/commons/d/df/Thomas_Tuchel_2020.jpg",
   "ten hag": "https://upload.wikimedia.org/wikipedia/commons/2/24/Erik_ten_Hag_2022_%28cropped%29.jpg",
+  "erik ten hag": "https://upload.wikimedia.org/wikipedia/commons/2/24/Erik_ten_Hag_2022_%28cropped%29.jpg",
   "deschamps": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Didier_Deschamps_2018.jpg",
   "didier deschamps": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Didier_Deschamps_2018.jpg",
   "scaloni": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Lionel_Scaloni_Qatar_2022.jpg",
@@ -252,6 +314,7 @@ export const MANAGER_PHOTOS: { [key: string]: string } = {
 };
 
 export function getManagerPhoto(name: string, theme?: string): string {
+  if (!name) return "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&q=80&w=300";
   const norm = name.toLowerCase().trim();
   for (const key of Object.keys(MANAGER_PHOTOS)) {
     if (norm === key || norm.includes(key)) {
@@ -259,17 +322,75 @@ export function getManagerPhoto(name: string, theme?: string): string {
     }
   }
 
-  if (theme === 'music') {
-    return "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300"; // Club turntable
-  }
-  if (theme === 'movies') {
-    return "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=300"; // Movie director's venue
-  }
-  
-  return "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300";
+  // Fallback to the human portrait generator so *every single manager* gets an actual photograph!
+  return getFallbackPortrait(name);
 }
 
-// 4. League logos / visual thumbnails / Studios
+// 5. Club logos / visual thumbnails / crests
+export const CLUB_LOGOS: { [key: string]: string } = {
+  "fc barcelona": "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
+  "barcelona": "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
+  "chelsea": "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",
+  "chelsea fc": "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",
+  "real madrid": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
+  "real madrid cf": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
+  "psg": "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg",
+  "paris saint-germain": "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg",
+  "inter miami": "https://upload.wikimedia.org/wikipedia/en/1/14/Inter_Miami_CF_logo.svg",
+  "inter miami cf": "https://upload.wikimedia.org/wikipedia/en/1/14/Inter_Miami_CF_logo.svg",
+  "sporting cp": "https://upload.wikimedia.org/wikipedia/en/3/3e/Sporting_Clube_de_Portugal.svg",
+  "sporting lisbon": "https://upload.wikimedia.org/wikipedia/en/3/3e/Sporting_Clube_de_Portugal.svg",
+  "manchester united": "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",
+  "juventus": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Juventus_FC_2017_icon_%28black%29.svg",
+  "al nassr": "https://upload.wikimedia.org/wikipedia/en/c/c7/Al-Nassr_FC_logo.svg",
+  "al-nassr": "https://upload.wikimedia.org/wikipedia/en/c/c7/Al-Nassr_FC_logo.svg",
+  "manchester city": "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
+  "arsenal": "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
+  "liverpool": "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
+  "bayern munich": "https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg",
+  "borussia dortmund": "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg",
+  "boca juniors": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Boca_crest.svg",
+  "river plate": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Escudo_del_C_A_River_Plate.svg",
+  "tottenham": "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",
+  "tottenham hotspur": "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",
+  "inter milan": "https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021_logo.svg",
+  "ac milan": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
+  "lille": "https://upload.wikimedia.org/wikipedia/commons/5/55/LOSC_Lille_crest_2018.svg",
+  "lyon": "https://upload.wikimedia.org/wikipedia/en/c/c6/Olympique_Lyonnais_logo.svg",
+  "marseille": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Olympique_de_Marseille_logo.svg",
+  "west ham": "https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg",
+  "roma": "https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg",
+  "napoli": "https://upload.wikimedia.org/wikipedia/commons/2/2d/SSC_Napoli_2024.svg",
+  "al hilal": "https://upload.wikimedia.org/wikipedia/en/b/bc/Al_Hilal_SFC_logo.svg",
+  "leicester city": "https://upload.wikimedia.org/wikipedia/en/2/2d/Leicester_City_FC_crest.svg",
+  "benfica": "https://upload.wikimedia.org/wikipedia/en/a/a2/SL_Benfica_logo.svg",
+  "porto": "https://upload.wikimedia.org/wikipedia/en/f/f1/FC_Porto.svg",
+  "ajax": "https://upload.wikimedia.org/wikipedia/en/7/79/Ajax_Amsterdam.svg",
+  "nottingham forest": "https://upload.wikimedia.org/wikipedia/en/e/e5/Nottingham_Forest_F.C._logo.svg",
+  "aston villa": "https://upload.wikimedia.org/wikipedia/en/f/f9/Aston_Villa_FC_crest_%282016%29.svg",
+};
+
+export function getClubLogo(clubName: string, theme?: string): string {
+  if (!clubName) return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=150";
+  const norm = clubName.toLowerCase().trim();
+  for (const key of Object.keys(CLUB_LOGOS)) {
+    if (norm === key || norm.includes(key) || key.includes(norm)) {
+      return CLUB_LOGOS[key];
+    }
+  }
+
+  if (theme === 'music') {
+    return "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=150"; // Vinyl compilation
+  }
+  if (theme === 'movies') {
+    return "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=150"; // Cinema/Studio fallback
+  }
+
+  // Return a stunning professional soccer stadium/field photographic background as a club fallback
+  return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=150";
+}
+
+// 6. League logos / visual thumbnails / Studios
 export const LEAGUE_LOGOS: { [key: string]: string } = {
   // Football Leagues
   "premier league": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg",
@@ -278,6 +399,7 @@ export const LEAGUE_LOGOS: { [key: string]: string } = {
   "bundesliga": "https://upload.wikimedia.org/wikipedia/commons/d/df/Bundesliga_logo_%282017%29.svg",
   "ligue 1": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Ligue_1_logo_2024.svg",
   "champions league": "https://upload.wikimedia.org/wikipedia/en/b/bf/UEFA_Champions_League_logo_2.svg",
+  "uefa champions league": "https://upload.wikimedia.org/wikipedia/en/b/bf/UEFA_Champions_League_logo_2.svg",
   "mls": "https://upload.wikimedia.org/wikipedia/commons/7/76/MLS_crest_logo_RGB_gradient.svg",
   "major league soccer": "https://upload.wikimedia.org/wikipedia/commons/7/76/MLS_crest_logo_RGB_gradient.svg",
   "primeira liga": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Liga_Portugal_2023.svg",
@@ -296,6 +418,7 @@ export const LEAGUE_LOGOS: { [key: string]: string } = {
 };
 
 export function getLeagueLogo(league: string, theme?: string): string {
+  if (!league) return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=150";
   const norm = league.toLowerCase().trim();
   for (const key of Object.keys(LEAGUE_LOGOS)) {
     if (norm === key || norm.includes(key)) {
@@ -304,19 +427,20 @@ export function getLeagueLogo(league: string, theme?: string): string {
   }
 
   if (theme === 'music') {
-    return "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=150"; // Vinyl disc placeholder
+    return "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=150"; // Vinyl compilation
   }
   if (theme === 'movies') {
-    return "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=150"; // Movie film reel/seat placeholder
+    return "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=150"; // Film reel
   }
 
   return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=150";
 }
 
-// 5. Trophy / Award Pictures
+// 7. Trophy / Award Pictures
 export const TROPHY_PHOTOS: { [key: string]: string } = {
   // Football
   "champions league": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
+  "uefa champions league": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
   "world cup": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
   "premier league": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
   "ballon d'or": "https://images.unsplash.com/photo-1614680376593-902f74fa0d41?auto=format&fit=crop&q=80&w=300",
@@ -337,29 +461,86 @@ export const TROPHY_PHOTOS: { [key: string]: string } = {
 
   // Music & Movies awards (Grammy, Oscar, etc.)
   "grammy": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300",
+  "grammy award": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300",
   "brit": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300",
   "or": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300",
   "vma": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=300",
   "oscar": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300",
+  "won oscar": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300",
   "academy": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300",
   "globe": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=300",
   "bafta": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=300"
 };
 
 export function getTrophyPhoto(trophy: string, theme?: string): string {
+  if (!trophy) return "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300";
   const norm = trophy.toLowerCase().trim();
   for (const key of Object.keys(TROPHY_PHOTOS)) {
-    if (norm === key || norm.includes(key)) {
+    if (norm === key || norm.includes(key) || key.includes(norm)) {
       return TROPHY_PHOTOS[key];
     }
   }
 
-  if (theme === 'music' || norm.includes("grammy") || norm.includes("brit") || norm.includes("vma")) {
+  if (theme === 'music' || norm.includes("grammy") || norm.includes("brit") || norm.includes("vma") || norm.includes("award")) {
     return "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300"; // Golden MIC setup / trophy
   }
   if (theme === 'movies' || norm.includes("oscar") || norm.includes("globe") || norm.includes("bafta")) {
     return "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300"; // Film style trophy fallback
   }
 
-  return "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300";
+  // Beautiful golden cup trophy default
+  return "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300";
+}
+
+// 8. General multi-purpose Category Image mapping
+// This maps categories like "Pop Music", "Genre", nationalities, or general headers to actual, high-quality images!
+export function getCategoryPhoto(title: string, type: string, theme?: string): string {
+  const normTitle = title.toLowerCase().trim();
+  const normType = type.toLowerCase().trim();
+
+  // If nationality category
+  if (normType === 'nationality') {
+    // If we have a country name in the category title, use its flag!
+    const cleanCountry = normTitle.replace("nationality:", "").replace("country:", "").trim();
+    const flag = getFlagUrl(cleanCountry);
+    if (flag) return flag;
+  }
+
+  // If club category
+  if (normType === 'club') {
+    const cleanClub = normTitle.replace("club:", "").trim();
+    return getClubLogo(cleanClub, theme);
+  }
+
+  // If league category
+  if (normType === 'league') {
+    const cleanLeague = normTitle.replace("league:", "").trim();
+    return getLeagueLogo(cleanLeague, theme);
+  }
+
+  // If trophy category
+  if (normType === 'trophy' || normType === 'award') {
+    const cleanAward = normTitle.replace("trophy:", "").replace("award:", "").trim();
+    return getTrophyPhoto(cleanAward, theme);
+  }
+
+  // If manager category
+  if (normType === 'manager' || normType === 'managed_by' || normType === 'director') {
+    const cleanManager = normTitle.replace("manager:", "").replace("director:", "").trim();
+    return getManagerPhoto(cleanManager, theme);
+  }
+
+  // General theme based fallback scenes
+  if (normTitle.includes("pop") || theme === 'music') {
+    return "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300"; // Pop microphone scene
+  }
+  if (normTitle.includes("rock") || normTitle.includes("alt")) {
+    return "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&q=80&w=300"; // Rock concert guitar scene
+  }
+  if (normTitle.includes("drama") || normTitle.includes("sci-fi") || theme === 'movies') {
+    return "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=300"; // Movie film reel/seat placeholder
+  }
+
+  // Standard high contrast professional soccer/sports stadium view as high quality visual representation
+  return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300";
 }

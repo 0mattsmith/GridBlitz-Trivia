@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { apiFetch } from '../lib/api';
 import { TenableTopic, TenableSetup } from '../types';
 import { RefreshCw, Play, Volume2, ShieldCheck, Heart, AlertCircle, Loader2, ArrowUpCircle, Keyboard, Timer, Swords, Compass, Trophy } from 'lucide-react';
-import { getPlayerPhoto, getFlagUrl, getTrophyPhoto, getLeagueLogo } from '../lib/images';
+import { getPlayerPhoto, getFlagUrl, getTrophyPhoto, getLeagueLogo, getClubLogo, getManagerPhoto, getCategoryPhoto } from '../lib/images';
 import { SafeImage } from './SafeImage';
 
 export default function TenableGame({ theme = "football" }: { theme?: 'football' | 'music' | 'movies' }) {
@@ -656,10 +656,26 @@ export default function TenableGame({ theme = "football" }: { theme?: 'football'
                     <div className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-black mr-4 overflow-hidden shrink-0 bg-slate-800 text-slate-400 border border-slate-700">
                       {isRevealed ? (
                         <SafeImage 
-                          src={getPlayerPhoto(answer || "", theme)} 
+                          src={
+                            (answer?.toLowerCase() === "england" || answer?.toLowerCase() === "france" || answer?.toLowerCase() === "portugal" || answer?.toLowerCase() === "brazil" || answer?.toLowerCase() === "argentina" || answer?.toLowerCase() === "germany" || answer?.toLowerCase() === "italy" || answer?.toLowerCase() === "spain") 
+                              ? getFlagUrl(answer) 
+                              : (answer?.toLowerCase().includes("win") || answer?.toLowerCase().includes("cup") || answer?.toLowerCase().includes("trophy") || answer?.toLowerCase().includes("league") || answer?.toLowerCase().includes("ballon"))
+                              ? getTrophyPhoto(answer, theme)
+                              : (answer?.toLowerCase().includes("guardiola") || answer?.toLowerCase().includes("klopp") || answer?.toLowerCase().includes("mourinho") || answer?.toLowerCase().includes("ancelotti") || answer?.toLowerCase().includes("ferguson") || answer?.toLowerCase().includes("wenger") || answer?.toLowerCase().includes("conte") || answer?.toLowerCase().includes("tuchel"))
+                              ? getManagerPhoto(answer, theme)
+                              : (answer?.toLowerCase().includes("fc") || answer?.toLowerCase().includes("united") || answer?.toLowerCase().includes("city") || answer?.toLowerCase().includes("chelsea") || answer?.toLowerCase().includes("real") || answer?.toLowerCase().includes("barcelona") || answer?.toLowerCase().includes("milan") || answer?.toLowerCase().includes("munich") || answer?.toLowerCase().includes("psg") || answer?.toLowerCase().includes("tottenham") || answer?.toLowerCase().includes("arsenal") || answer?.toLowerCase().includes("liverpool"))
+                              ? getClubLogo(answer, theme)
+                              : getPlayerPhoto(answer || "", theme)
+                          } 
                           alt="" 
                           className="w-full h-full object-cover rounded-full" 
-                          fallbackType="player"
+                          fallbackType={
+                            (answer?.toLowerCase() === "england" || answer?.toLowerCase() === "france" || answer?.toLowerCase() === "portugal" || answer?.toLowerCase() === "brazil" || answer?.toLowerCase() === "argentina" || answer?.toLowerCase() === "germany" || answer?.toLowerCase() === "italy" || answer?.toLowerCase() === "spain") 
+                              ? 'flag'
+                              : (answer?.toLowerCase().includes("win") || answer?.toLowerCase().includes("cup") || answer?.toLowerCase().includes("trophy") || answer?.toLowerCase().includes("league") || answer?.toLowerCase().includes("ballon"))
+                              ? 'trophy'
+                              : 'player'
+                          }
                           fallbackName={answer || ""}
                         />
                       ) : (

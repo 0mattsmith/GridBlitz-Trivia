@@ -5,7 +5,7 @@ import {
   HelpCircle, AlertCircle, Info, Flame, Grid3X3, UserCheck, RefreshCw 
 } from 'lucide-react';
 import { SafeImage } from './SafeImage';
-import { getPlayerPhoto, getFlagUrl } from '../lib/images';
+import { getPlayerPhoto, getFlagUrl, getCategoryPhoto } from '../lib/images';
 import footballersData from '../../footballer-db.json';
 
 interface Footballer {
@@ -750,21 +750,44 @@ export default function Grid4x4Game({ theme }: { theme: string }) {
                   ) : (
                     // Empty Category layout
                     <div className="flex flex-col h-full justify-between items-stretch text-left">
-                      <div className="leading-tight">
-                        <span className={`inline-block text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full mb-1 ${
-                          cat.type === 'club' ? 'bg-indigo-100 text-indigo-805' :
-                          cat.type === 'nationality' ? 'bg-amber-100 text-amber-805' :
-                          cat.type === 'trophy' ? 'bg-emerald-100 text-emerald-850' :
-                          cat.type === 'manager' ? 'bg-rose-100 text-rose-805' : 'bg-slate-200 text-slate-800'
-                        }`}>
-                          {cat.type}
-                        </span>
-                        <h4 className="text-[11px] font-black text-slate-800 line-clamp-2 md:leading-normal">
-                          {cat.title}
-                        </h4>
+                      <div className="flex items-start justify-between gap-2 leading-tight">
+                        <div className="flex-1">
+                          <span className={`inline-block text-[8px] font-black uppercase px-1.5 py-0.5 rounded-full mb-1 ${
+                            cat.type === 'club' ? 'bg-indigo-100 text-indigo-800' :
+                            cat.type === 'nationality' ? 'bg-amber-100 text-amber-800' :
+                            cat.type === 'trophy' ? 'bg-emerald-100 text-emerald-800' :
+                            cat.type === 'manager' ? 'bg-rose-100 text-rose-800' : 'bg-slate-205 text-slate-805'
+                          }`}>
+                            {cat.type}
+                          </span>
+                          <h4 className="text-[11px] font-black text-slate-800 line-clamp-2 md:leading-normal">
+                            {cat.title}
+                          </h4>
+                        </div>
+                        {/* Perfect-scale category high fidelity photo badge representation */}
+                        <div className="w-8 h-8 rounded-full overflow-hidden shrink-0 border border-slate-200 shadow-xxs bg-slate-50 flex items-center justify-center">
+                          <SafeImage
+                            src={getCategoryPhoto(cat.title, cat.type, theme)}
+                            alt={cat.title}
+                            className="w-full h-full object-cover"
+                            fallbackType={
+                              cat.type === 'manager' ? 'manager' :
+                              cat.type === 'nationality' ? 'flag' :
+                              cat.type === 'club' ? 'league' :
+                              cat.type === 'trophy' ? 'trophy' : 'league'
+                            }
+                            fallbackName={
+                              cat.type === 'nationality' ? cat.title.replace("Nationality:", "").trim() :
+                              cat.type === 'club' ? cat.title.replace("Club:", "").trim() :
+                              cat.type === 'manager' ? cat.title.replace("Manager:", "").trim() :
+                              cat.type === 'trophy' ? cat.title.replace("Trophy:", "").trim() : cat.title
+                            }
+                            theme={theme}
+                          />
+                        </div>
                       </div>
 
-                      <div className="flex items-center justify-between text-[9px] text-slate-400">
+                      <div className="flex items-center justify-between text-[9px] text-slate-400 mt-1">
                         <span className="line-clamp-1 font-mono">{cat.description}</span>
                         {activeFootballer && fitsHighlight && (
                           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>

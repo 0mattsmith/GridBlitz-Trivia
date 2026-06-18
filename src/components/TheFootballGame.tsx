@@ -5,6 +5,8 @@ import {
   Trophy, RefreshCw, Play, ShieldCheck, AlertCircle, Loader2, HelpCircle, 
   Send, CheckCircle2, XCircle, Clock, Flame, BookOpen, Layers, Settings, Swords
 } from 'lucide-react';
+import { SafeImage } from './SafeImage';
+import { getCategoryPhoto } from '../lib/images';
 
 interface TopicCard {
   id: string;
@@ -548,21 +550,34 @@ export default function TheFootballGame({ theme = 'football' }: { theme?: 'footb
                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -mr-10 -mt-10"></div>
                     <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/2 rounded-full blur-xl -ml-6 -mb-6"></div>
 
-                    <div className="flex justify-between items-start">
-                      <span className="text-[10px] font-mono uppercase bg-white/10 px-2 py-0.5 rounded-md font-bold tracking-widest text-[#FFF]">
-                        {card.category || 'Topic Card'}
-                      </span>
-                      {customTopicActive && (
-                        <span className="text-[9px] font-bold font-mono tracking-tight bg-emerald-500 text-slate-900 px-1.5 py-0.5 rounded">
-                          ✨ AI Custom Card
+                    <div className="flex justify-between items-start gap-4">
+                      <div className="flex-1">
+                        <span className="text-[10px] font-mono uppercase bg-white/10 px-2 py-0.5 rounded-md font-bold tracking-widest text-[#FFF]">
+                          {card.category || 'Topic Card'}
                         </span>
-                      )}
-                    </div>
-
-                    <div className="my-4">
-                      <h2 className="text-xl sm:text-2xl font-black uppercase text-white tracking-tight leading-tight">
-                        {card.title}
-                      </h2>
+                        {customTopicActive && (
+                          <span className="text-[9px] font-bold font-mono tracking-tight bg-emerald-500 text-slate-900 px-1.5 py-0.5 ml-2 rounded inline-block">
+                            ✨ AI Custom Card
+                          </span>
+                        )}
+                        <div className="my-4">
+                          <h2 className="text-lg sm:text-xl md:text-2xl font-black uppercase text-white tracking-tight leading-snug">
+                            {card.title}
+                          </h2>
+                        </div>
+                      </div>
+                      
+                      {/* Topic circular Photo Badge! */}
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden shrink-0 border-2 border-white/20 shadow-lg bg-slate-800 flex items-center justify-center relative mt-1">
+                        <SafeImage
+                          src={getCategoryPhoto(card.title, card.category || 'topic', theme)}
+                          alt={card.title}
+                          className="w-full h-full object-cover"
+                          fallbackType="league"
+                          fallbackName={card.title}
+                          theme={theme}
+                        />
+                      </div>
                     </div>
 
                     <div className="flex justify-between items-center mt-2">

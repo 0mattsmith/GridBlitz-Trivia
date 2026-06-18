@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import { 
+  getFallbackPortrait, 
+  getFlagUrl, 
+  getLeagueLogo, 
+  getTrophyPhoto, 
+  getManagerPhoto 
+} from '../lib/images';
 
 interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fallbackType?: 'player' | 'flag' | 'manager' | 'league' | 'trophy';
   fallbackName?: string;
+  theme?: string;
 }
 
 export const SafeImage: React.FC<SafeImageProps> = ({
@@ -10,7 +18,8 @@ export const SafeImage: React.FC<SafeImageProps> = ({
   alt,
   className,
   fallbackType = 'player',
-  fallbackName,
+  fallbackName = '',
+  theme = 'football',
   ...props
 }) => {
   const [hasError, setHasError] = useState(false);
@@ -20,80 +29,36 @@ export const SafeImage: React.FC<SafeImageProps> = ({
     setHasError(false);
   }, [src]);
 
-  const getInitials = (name: string): string => {
-    if (!name) return "⚽";
-    const parts = name.replace(/[^a-zA-Z\s]/g, "").trim().split(/\s+/);
-    if (parts.length === 0 || !parts[0]) return "⚽";
-    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-  };
-
   const handleError = () => {
     setHasError(true);
   };
 
+  // If there's an error loading the main URL, or if there is no URL provided,
+  // we dynamically resolve a full-fledged high-quality photograph or vector URL instead of empty blocks!
   if (hasError || !src) {
-    if (fallbackType === 'player' && fallbackName) {
-      const initials = getInitials(fallbackName);
-      return (
-        <div 
-          className={`${className} flex items-center justify-center bg-gradient-to-br from-slate-700 via-slate-800 to-indigo-900 text-white font-black uppercase text-center select-none shadow-inner border border-slate-600/30`}
-          title={fallbackName}
-        >
-          <span className="text-[40%] leading-none tracking-tight">{initials}</span>
-        </div>
-      );
-    }
+    let resolvedFallbackUrl = "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300";
 
-    if (fallbackType === 'flag') {
-      return (
-        <span 
-          className="w-5 h-3.5 rounded-xs bg-slate-50 border border-slate-200 flex items-center justify-center font-mono text-[8px] text-slate-400 select-none shrink-0"
-          title={fallbackName || "Nationality Info"}
-        >
-          🏴
-        </span>
-      );
-    }
-
-    if (fallbackType === 'manager' && fallbackName) {
-      const initials = getInitials(fallbackName);
-      return (
-        <div 
-          className={`${className} flex items-center justify-center bg-gradient-to-br from-amber-600 to-rose-700 text-white font-black uppercase text-center select-none shadow-inner border border-amber-500/20`}
-          title={fallbackName}
-        >
-          <span className="text-[40%] leading-none">{initials}</span>
-        </div>
-      );
-    }
-
-    if (fallbackType === 'league') {
-      return (
-        <div 
-          className={`${className} flex items-center justify-center bg-slate-50 border border-slate-205 text-slate-400 select-none`}
-          title={fallbackName}
-        >
-          ⚽
-        </div>
-      );
-    }
-
-    if (fallbackType === 'trophy') {
-      return (
-        <div 
-          className={`${className} flex items-center justify-center bg-slate-50 border border-slate-205 text-amber-500 text-[10px] sm:text-[11px] select-none`}
-          title={fallbackName}
-        >
-          🏆
-        </div>
-      );
+    if (fallbackType === 'player') {
+      resolvedFallbackUrl = getFallbackPortrait(fallbackName);
+    } else if (fallbackType === 'manager') {
+      resolvedFallbackUrl = getManagerPhoto(fallbackName, theme);
+    } else if (fallbackType === 'flag') {
+      resolvedFallbackUrl = getFlagUrl(fallbackName);
+    } else if (fallbackType === 'league') {
+      resolvedFallbackUrl = getLeagueLogo(fallbackName, theme);
+    } else if (fallbackType === 'trophy') {
+      resolvedFallbackUrl = getTrophyPhoto(fallbackName, theme);
     }
 
     return (
-      <div className={`${className} flex items-center justify-center bg-slate-100 border border-slate-200 text-slate-450`}>
-        ⚽
-      </div>
+      <img
+        src={resolvedFallbackUrl}
+        alt={fallbackName || alt}
+        className={className}
+        referrerPolicy="no-referrer"
+        title={fallbackName}
+        {...props}
+      />
     );
   }
 
