@@ -7,11 +7,13 @@ import CareerPathGame from './components/CareerPathGame';
 import LeaderboardsView from './components/LeaderboardsView';
 import TheFootballGame from './components/TheFootballGame';
 import SpotleGame from './components/SpotleGame';
+import Grid4x4Game from './components/Grid4x4Game';
 
 enum ActiveTab {
   TIC_TAC_TOE = 'tic_tac_toe',
   TENABLE = 'tenable',
   CAREER_PATH = 'career_path',
+  GRID_4X4 = 'grid_4x4',
   THE_FOOTBALL_GAME = 'football_game',
   CLUE_SPOTLE = 'clue_spotle',
   LEADERBOARD = 'leaderboard'
@@ -132,7 +134,7 @@ export default function App() {
         </div>
 
         {/* Navigation Selector Tabs */}
-        <div className="w-full bg-white border border-slate-200 p-1.5 rounded-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 shadow-sm">
+        <div className="w-full bg-white border border-slate-200 p-1.5 rounded-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-1 shadow-sm">
           <button
             onClick={() => setActiveTab(ActiveTab.TIC_TAC_TOE)}
             className={`py-3 px-2 rounded-lg text-xs sm:text-sm font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all cursor-pointer relative ${
@@ -181,6 +183,24 @@ export default function App() {
               <span className={`text-[8px] font-mono hidden md:block uppercase font-bold tracking-wider mt-0.5 ${
                 activeTab === ActiveTab.CAREER_PATH ? getThemeTextClass() : 'text-slate-400'
               }`}>Mystery Puzzle</span>
+            </div>
+          </button>
+
+          <button
+            onClick={() => setActiveTab(ActiveTab.GRID_4X4)}
+            className={`py-3 px-2 rounded-lg text-xs sm:text-sm font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all cursor-pointer relative ${
+              activeTab === ActiveTab.GRID_4X4
+                ? 'bg-slate-900 text-white shadow-md'
+                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'
+            }`}
+            id="nav-tab-grid4x4"
+          >
+            <Layers size={16} className={activeTab === ActiveTab.GRID_4X4 ? getThemeAccentClass() : 'opacity-60'} />
+            <div className="flex flex-col sm:items-start leading-none text-center sm:text-left">
+              <span className="block font-sans text-xs sm:text-sm">4x4 Link Grid</span>
+              <span className={`text-[8px] font-mono hidden md:block uppercase font-bold tracking-wider mt-0.5 ${
+                activeTab === ActiveTab.GRID_4X4 ? getThemeTextClass() : 'text-slate-400'
+              }`}>100% Solvable board</span>
             </div>
           </button>
 
@@ -250,6 +270,7 @@ export default function App() {
               {activeTab === ActiveTab.TIC_TAC_TOE && <TicTacToeGame theme={activeTheme} />}
               {activeTab === ActiveTab.TENABLE && <TenableGame theme={activeTheme} />}
               {activeTab === ActiveTab.CAREER_PATH && <CareerPathGame theme={activeTheme} />}
+              {activeTab === ActiveTab.GRID_4X4 && <Grid4x4Game theme={activeTheme} />}
               {activeTab === ActiveTab.THE_FOOTBALL_GAME && <TheFootballGame theme={activeTheme} />}
               {activeTab === ActiveTab.CLUE_SPOTLE && <SpotleGame theme={activeTheme} />}
               {activeTab === ActiveTab.LEADERBOARD && <LeaderboardsView />}

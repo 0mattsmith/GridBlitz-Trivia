@@ -328,7 +328,7 @@ export default function TicTacToeGame({ theme = "football" }: { theme?: 'footbal
   function renderCriteriaBadge(crit: { value: string; type: string } | undefined) {
     if (!crit) return null;
     const val = crit.value;
-    const t = crit.type;
+    const t = crit.type.toLowerCase();
     
     // Nationality country flags
     if (t === "nationality") {

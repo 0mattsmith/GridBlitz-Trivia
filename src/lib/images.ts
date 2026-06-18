@@ -40,7 +40,9 @@ export const COUNTRY_FLAG_CODES: { [key: string]: string } = {
   "nigeria": "ng",
   "south africa": "za",
   "new zealand": "nz",
-  "austria": "at"
+  "austria": "at",
+  "ivory coast": "ci",
+  "cote d'ivoire": "ci"
 };
 
 export function getFlagUrl(nationality: string): string | null {
@@ -60,16 +62,47 @@ export function getFlagUrl(nationality: string): string | null {
 
 // 2. Wikipedia & high-quality Wikimedia Commons headshots for players, musicians, and film stars
 export const PLAYER_PHOTOS: { [key: string]: string } = {
-  // Football
+  // Football database players
   "messi": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg",
   "ronaldo": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg",
-  "ibrahimovic": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zlatan_Ibrahimgovic_June_2018.jpg",
-  "zlatan": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zlatan_Ibrahimgovic_June_2018.jpg",
+  "lampard": "https://upload.wikimedia.org/wikipedia/commons/6/62/Frank_Lampard_on_15_August_2018_%28cropped%29.jpg",
+  "frank lampard": "https://upload.wikimedia.org/wikipedia/commons/6/62/Frank_Lampard_on_15_August_2018_%28cropped%29.jpg",
+  "hazard": "https://upload.wikimedia.org/wikipedia/commons/2/23/Eden_Hazard_2018.jpg",
+  "palmer": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cole_Palmer_Chelsea_v_Burnley_2024.jpg",
+  "cole palmer": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Cole_Palmer_Chelsea_v_Burnley_2024.jpg",
+  "haaland": "https://upload.wikimedia.org/wikipedia/commons/0/07/Erling_Haaland_2023.jpg",
+  "de bruyne": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kevin_De_Bruyne_20180609.jpg",
+  "kevin de bruyne": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kevin_De_Bruyne_20180609.jpg",
+  "kdb": "https://upload.wikimedia.org/wikipedia/commons/4/40/Kevin_De_Bruyne_20180609.jpg",
+  "benzema": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Karim_Benzema_v_Al-Hilal%2C_Saudi_Super_Cup_2024.jpg",
+  "karim benzema": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Karim_Benzema_v_Al-Hilal%2C_Saudi_Super_Cup_2024.jpg",
   "henry": "https://upload.wikimedia.org/wikipedia/commons/5/55/Thierry_Henry_2014.jpg",
   "thierry": "https://upload.wikimedia.org/wikipedia/commons/5/55/Thierry_Henry_2014.jpg",
-  "hazard": "https://upload.wikimedia.org/wikipedia/commons/2/23/Eden_Hazard_2018.jpg",
+  "terry": "https://upload.wikimedia.org/wikipedia/commons/d/de/John_Terry_2017.jpg",
+  "john terry": "https://upload.wikimedia.org/wikipedia/commons/d/de/John_Terry_2017.jpg",
+  "drogba": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Didier_Drogba_2015_%28cropped%29.jpg",
+  "didier drogba": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Didier_Drogba_2015_%28cropped%29.jpg",
+  "bergkamp": "https://upload.wikimedia.org/wikipedia/commons/d/da/Dennis_Bergkamp_Legends_2016.jpg",
+  "dennis bergkamp": "https://upload.wikimedia.org/wikipedia/commons/d/da/Dennis_Bergkamp_Legends_2016.jpg",
+  "gerrard": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Steven_Gerrard_2015.jpg",
+  "steven gerrard": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Steven_Gerrard_2015.jpg",
+  "kante": "https://upload.wikimedia.org/wikipedia/commons/5/53/N%27Golo_Kant%C3%A9_2018.jpg",
+  "n'golo kante": "https://upload.wikimedia.org/wikipedia/commons/5/53/N%27Golo_Kant%C3%A9_2018.jpg",
+  "ngolo kante": "https://upload.wikimedia.org/wikipedia/commons/5/53/N%27Golo_Kant%C3%A9_2018.jpg",
+  "van dijk": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Virgil_van_Dijk_2022.jpg",
+  "virgil van dijk": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Virgil_van_Dijk_2022.jpg",
+  "vvd": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Virgil_van_Dijk_2022.jpg",
+  "salah": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Mohamed_Salah_2018.jpg",
+  "mohamed salah": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Mohamed_Salah_2018.jpg",
+  "mo salah": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Mohamed_Salah_2018.jpg",
   "modric": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Luka_Modri%C4%87_2018.jpg",
-  "haaland": "https://upload.wikimedia.org/wikipedia/commons/0/07/Erling_Haaland_2023.jpg",
+  "luka modric": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Luka_Modri%C4%87_2018.jpg",
+  "kroos": "https://upload.wikimedia.org/wikipedia/commons/1/12/Toni_Kroos_2018.jpg",
+  "toni kroos": "https://upload.wikimedia.org/wikipedia/commons/1/12/Toni_Kroos_2018.jpg",
+
+  // Other players / legends
+  "ibrahimovic": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zlatan_Ibrahimgovic_June_2018.jpg",
+  "zlatan": "https://upload.wikimedia.org/wikipedia/commons/0/01/Zlatan_Ibrahimgovic_June_2018.jpg",
   "kane": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Harry_Kane_2018.jpg",
   "zidane": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Zinedine_Zidane_by_Tasnim_01.jpg",
   "ronaldinho": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Ronaldinho_in_2019.jpg",
@@ -166,7 +199,7 @@ export const PLAYER_PHOTOS: { [key: string]: string } = {
 export function getPlayerPhoto(name: string, theme?: string): string {
   const norm = name.toLowerCase().trim();
   for (const key of Object.keys(PLAYER_PHOTOS)) {
-    if (norm.includes(key)) {
+    if (norm === key || norm.includes(key)) {
       return PLAYER_PHOTOS[key];
     }
   }
@@ -187,10 +220,28 @@ export function getPlayerPhoto(name: string, theme?: string): string {
 export const MANAGER_PHOTOS: { [key: string]: string } = {
   // Football
   "mourinho": "https://upload.wikimedia.org/wikipedia/commons/8/80/Jos%C3%A9_Mourinho_August_2020.jpg",
+  "jose mourinho": "https://upload.wikimedia.org/wikipedia/commons/8/80/Jos%C3%A9_Mourinho_August_2020.jpg",
   "guardiola": "https://upload.wikimedia.org/wikipedia/commons/0/02/Pep_Guardiola_2015.jpg",
+  "pep guardiola": "https://upload.wikimedia.org/wikipedia/commons/0/02/Pep_Guardiola_2015.jpg",
   "klopp": "https://upload.wikimedia.org/wikipedia/commons/c/c5/J%C3%BCrgen_Klopp%2C_Liverpool_FC_manager_%28cropped%29.jpg",
+  "jurgen klopp": "https://upload.wikimedia.org/wikipedia/commons/c/c5/J%C3%BCrgen_Klopp%2C_Liverpool_FC_manager_%28cropped%29.jpg",
   "ancelotti": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Carlo_Ancelotti_2021.jpg",
+  "carlo ancelotti": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Carlo_Ancelotti_2021.jpg",
   "ferguson": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Alex_Ferguson_2009.jpg",
+  "alex ferguson": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Alex_Ferguson_2009.jpg",
+  "wenger": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Ars%C3%A8ne_Wenger_2014.jpg",
+  "arsene wenger": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Ars%C3%A8ne_Wenger_2014.jpg",
+  "conte": "https://upload.wikimedia.org/wikipedia/commons/2/27/Antonio_Conte_2017.jpg",
+  "antonio conte": "https://upload.wikimedia.org/wikipedia/commons/2/27/Antonio_Conte_2017.jpg",
+  "solskjaer": "https://upload.wikimedia.org/wikipedia/commons/a/af/Ole_Gunnar_Solskj%C3%A6r_2019_%28cropped%29.jpg",
+  "tuchel": "https://upload.wikimedia.org/wikipedia/commons/d/df/Thomas_Tuchel_2020.jpg",
+  "ten hag": "https://upload.wikimedia.org/wikipedia/commons/2/24/Erik_ten_Hag_2022_%28cropped%29.jpg",
+  "deschamps": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Didier_Deschamps_2018.jpg",
+  "didier deschamps": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Didier_Deschamps_2018.jpg",
+  "scaloni": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Lionel_Scaloni_Qatar_2022.jpg",
+  "lionel scaloni": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Lionel_Scaloni_Qatar_2022.jpg",
+  "maradona": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Diego_Maradona_2018.jpg",
+  "diego maradona": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Diego_Maradona_2018.jpg",
 
   // Film (additional director map safety)
   "nolan": "https://upload.wikimedia.org/wikipedia/commons/9/95/Christopher_Nolan_Cannes_2018.jpg",
@@ -203,7 +254,7 @@ export const MANAGER_PHOTOS: { [key: string]: string } = {
 export function getManagerPhoto(name: string, theme?: string): string {
   const norm = name.toLowerCase().trim();
   for (const key of Object.keys(MANAGER_PHOTOS)) {
-    if (norm.includes(key)) {
+    if (norm === key || norm.includes(key)) {
       return MANAGER_PHOTOS[key];
     }
   }
@@ -220,13 +271,20 @@ export function getManagerPhoto(name: string, theme?: string): string {
 
 // 4. League logos / visual thumbnails / Studios
 export const LEAGUE_LOGOS: { [key: string]: string } = {
-  // Football Leauges
+  // Football Leagues
   "premier league": "https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg",
   "la liga": "https://upload.wikimedia.org/wikipedia/commons/0/0f/LaLiga_logo_2023.svg",
   "serie a": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Serie_A_logo_2024.svg",
   "bundesliga": "https://upload.wikimedia.org/wikipedia/commons/d/df/Bundesliga_logo_%282017%29.svg",
   "ligue 1": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Ligue_1_logo_2024.svg",
   "champions league": "https://upload.wikimedia.org/wikipedia/en/b/bf/UEFA_Champions_League_logo_2.svg",
+  "mls": "https://upload.wikimedia.org/wikipedia/commons/7/76/MLS_crest_logo_RGB_gradient.svg",
+  "major league soccer": "https://upload.wikimedia.org/wikipedia/commons/7/76/MLS_crest_logo_RGB_gradient.svg",
+  "primeira liga": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Liga_Portugal_2023.svg",
+  "saudi pro league": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Saudi_Pro_League_Spl_logo.png",
+  "championship": "https://upload.wikimedia.org/wikipedia/en/4/45/EFL_Championship_logo.svg",
+  "eredivisie": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Eredivisie_nieuw_logo.svg",
+  "super lig": "https://upload.wikimedia.org/wikipedia/commons/f/f9/S%C3%BCper_Lig_logo.png",
 
   // Movie Studios / Entertainment (Tic-Tac-Toe cells)
   "warner bors.": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&q=80&w=300",
@@ -240,7 +298,7 @@ export const LEAGUE_LOGOS: { [key: string]: string } = {
 export function getLeagueLogo(league: string, theme?: string): string {
   const norm = league.toLowerCase().trim();
   for (const key of Object.keys(LEAGUE_LOGOS)) {
-    if (norm.includes(key)) {
+    if (norm === key || norm.includes(key)) {
       return LEAGUE_LOGOS[key];
     }
   }
@@ -262,6 +320,20 @@ export const TROPHY_PHOTOS: { [key: string]: string } = {
   "world cup": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
   "premier league": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
   "ballon d'or": "https://images.unsplash.com/photo-1614680376593-902f74fa0d41?auto=format&fit=crop&q=80&w=300",
+  "la liga": "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=300",
+  "ligue 1": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300",
+  "serie a": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
+  "bundesliga": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300",
+  "europa league": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
+  "fa cup": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
+  "league cup": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
+  "copa america": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
+  "copa del rey": "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=300",
+  "club world cup": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
+  "euros": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
+  "european championship": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
+  "eredivisie": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
+  "super lig": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
 
   // Music & Movies awards (Grammy, Oscar, etc.)
   "grammy": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300",
@@ -277,7 +349,7 @@ export const TROPHY_PHOTOS: { [key: string]: string } = {
 export function getTrophyPhoto(trophy: string, theme?: string): string {
   const norm = trophy.toLowerCase().trim();
   for (const key of Object.keys(TROPHY_PHOTOS)) {
-    if (norm.includes(key)) {
+    if (norm === key || norm.includes(key)) {
       return TROPHY_PHOTOS[key];
     }
   }
