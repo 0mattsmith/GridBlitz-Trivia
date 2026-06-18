@@ -112,7 +112,8 @@ export function getFallbackPortrait(name: string): string {
 export const PLAYER_PHOTOS: { [key: string]: string } = {
   // Football db players
   "messi": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg",
-  "ronaldo": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg",
+  "cristiano ronaldo": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg",
+  "ronaldo nazario": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Ronaldo_Naz%C3%A1rio_de_Lima_at_the_Laureus_World_Sports_Awards_2018.jpg",
   "lampard": "https://upload.wikimedia.org/wikipedia/commons/6/62/Frank_Lampard_on_15_August_2018_%28cropped%29.jpg",
   "frank lampard": "https://upload.wikimedia.org/wikipedia/commons/6/62/Frank_Lampard_on_15_August_2018_%28cropped%29.jpg",
   "hazard": "https://upload.wikimedia.org/wikipedia/commons/2/23/Eden_Hazard_2018.jpg",
@@ -265,6 +266,15 @@ export const PLAYER_PHOTOS: { [key: string]: string } = {
 export function getPlayerPhoto(name: string, theme?: string): string {
   if (!name) return "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300";
   const norm = name.toLowerCase().trim();
+
+  // Explicitly separate Cristiano Ronaldo and Ronaldo Nazário (R9) to prevent collisions
+  if (norm === "ronaldo" || norm.includes("nazario") || norm.includes("nazário") || norm.includes("r9") || norm.includes("fenomen") || norm.includes("lima")) {
+    return "https://upload.wikimedia.org/wikipedia/commons/f/f7/Ronaldo_Naz%C3%A1rio_de_Lima_at_the_Laureus_World_Sports_Awards_2018.jpg";
+  }
+  if (norm.includes("cristiano") || norm.includes("cr7") || norm.includes("c. ronaldo") || norm === "cristiano ronaldo") {
+    return "https://upload.wikimedia.org/wikipedia/commons/8/8c/Cristiano_Ronaldo_2018.jpg";
+  }
+
   for (const key of Object.keys(PLAYER_PHOTOS)) {
     if (norm === key || norm.includes(key) || key.includes(norm)) {
       return PLAYER_PHOTOS[key];
@@ -719,31 +729,31 @@ export function getLeagueLogo(league: string, theme?: string): string {
 // 7. Trophy / Award Pictures
 export const TROPHY_PHOTOS: { [key: string]: string } = {
   // Football
-  "champions league": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
-  "uefa champions league": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
-  "world cup": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
-  "premier league": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
+  "champions league": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
+  "uefa champions league": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
+  "world cup": "https://upload.wikimedia.org/wikipedia/commons/c/c7/FIFA_World_Cup_Trophy.png",
+  "premier league": "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300",
   "ballon d'or": "https://images.unsplash.com/photo-1614680376593-902f74fa0d41?auto=format&fit=crop&q=80&w=300",
   "la liga": "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=300",
   "ligue 1": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300",
-  "serie a": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
+  "serie a": "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300",
   "bundesliga": "https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&q=80&w=300",
-  "europa league": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
-  "fa cup": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
-  "league cup": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
-  "copa america": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
+  "europa league": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
+  "fa cup": "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300",
+  "league cup": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
+  "copa america": "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300",
   "copa del rey": "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&q=80&w=300",
-  "club world cup": "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300",
-  "euros": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
-  "european championship": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
-  "eredivisie": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&q=80&w=300",
-  "super lig": "https://images.unsplash.com/photo-1543326119-7053de017531?auto=format&fit=crop&q=80&w=300",
+  "club world cup": "https://upload.wikimedia.org/wikipedia/commons/c/c7/FIFA_World_Cup_Trophy.png",
+  "euros": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
+  "european championship": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
+  "eredivisie": "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300",
+  "super lig": "https://upload.wikimedia.org/wikipedia/commons/6/6b/European_Champion_Clubs%27_Cup.svg",
 
   // Music & Movies awards (Grammy, Oscar, etc.)
   "grammy": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300",
   "grammy award": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=300",
   "brit": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300",
-  "or": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=300",
+  "or": "https://images.unsplash.com/photo-1614680376593-902f74fa0d41?auto=format&fit=crop&q=80&w=300", // Fix collision with 'or' returning microphone (clashed with Ballon d'Or)
   "vma": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=300",
   "oscar": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300",
   "won oscar": "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&q=80&w=300",
@@ -753,7 +763,7 @@ export const TROPHY_PHOTOS: { [key: string]: string } = {
 };
 
 export function getTrophyPhoto(trophy: string, theme?: string): string {
-  if (!trophy) return "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300";
+  if (!trophy) return "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300";
   const norm = trophy.toLowerCase().trim();
   for (const key of Object.keys(TROPHY_PHOTOS)) {
     if (norm === key || norm.includes(key) || key.includes(norm)) {
@@ -769,7 +779,7 @@ export function getTrophyPhoto(trophy: string, theme?: string): string {
   }
 
   // Beautiful golden cup trophy default
-  return "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=300";
+  return "https://images.unsplash.com/photo-1578269174936-2709b5a5e023?auto=format&fit=crop&q=80&w=300";
 }
 
 // 8. General multi-purpose Category Image mapping
