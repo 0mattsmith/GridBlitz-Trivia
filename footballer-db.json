@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Lionel Messi",
+    "synonyms": ["messi", "lionel messi", "leo messi", "l. messi"],
+    "nationality": "Argentina",
+    "clubs": ["FC Barcelona", "Barcelona", "PSG", "Paris Saint-Germain", "Inter Miami", "Inter Miami CF"],
+    "managers": ["Pep Guardiola", "Luis Enrique", "Lionel Scaloni", "Mauricio Pochettino", "Gerardo Martino", "Tata Martino", "Tito Vilanova", "Alejandro Sabella", "Diego Maradona"],
+    "trophies": ["Ballon d'Or", "World Cup", "Copa America", "Champions League", "La Liga", "Ligue 1", "Leagues Cup", "FIFA Club World Cup", "UEFA Champions League"],
+    "leagues": ["La Liga", "Ligue 1", "MLS", "Major League Soccer"],
+    "partners": ["Neymar", "Luis Suarez", "Andres Iniesta", "Xavi", "Sergio Busquets", "Jordi Alba", "Kylian Mbappe", "Angel Di Maria", "Javier Mascherano", "Ronaldinho", "Gerard Pique", "Dani Alves", "Lautaro Martinez", "Enzo Fernandez", "Julian Alvarez", "Alexis Mac Allister"]
+  },
+  {
+    "name": "Cristiano Ronaldo",
+    "synonyms": ["ronaldo", "cristiano ronaldo", "cr7", "c. ronaldo", "cristiano"],
+    "nationality": "Portugal",
+    "clubs": ["Sporting CP", "Sporting Lisbon", "Manchester United", "Real Madrid", "Juventus", "Al Nassr", "Al-Nassr"],
+    "managers": ["Alex Ferguson", "Jose Mourinho", "Carlo Ancelotti", "Zinedine Zidane", "Massimiliano Allegri", "Fernando Santos", "Rafa Benitez", "Manuel Pellegrini", "Andrea Pirlo", "Roberto Martinez"],
+    "trophies": ["Ballon d'Or", "Champions League", "Premier League", "La Liga", "Serie A", "Euros", "UEFA European Championship", "FIFA Club World Cup", "UEFA Nations League"],
+    "leagues": ["Primeira Liga", "Premier League", "La Liga", "Serie A", "Saudi Pro League"],
+    "partners": ["Wayne Rooney", "Karim Benzema", "Gareth Bale", "Luka Modric", "Toni Kroos", "Casemiro", "Bruno Fernandes", "Marcus Rashford", "Roy Keane", "Paul Scholes", "Ryan Giggs", "Rio Ferdinand", "Nemanja Vidic", "Pepe", "Bernardo Silva", "Joao Felix", "Angel Di Maria", "Gonzalo Higuain", "Paulo Dybala"]
+  },
+  {
+    "name": "Frank Lampard",
+    "synonyms": ["lampard", "frank lampard", "f. lampard"],
+    "nationality": "England",
+    "clubs": ["West Ham United", "Chelsea", "Manchester City", "New York City", "New York City FC"],
+    "managers": ["Jose Mourinho", "Carlo Ancelotti", "Claudio Ranieri", "Harry Redknapp", "Manuel Pellegrini", "Sven-Goran Eriksson", "Fabio Capello", "Roy Hodgson", "Guus Hiddink"],
+    "trophies": ["Premier League", "Champions League", "Europa League", "FA Cup", "League Cup", "Community Shield", "UEFA Champions League"],
+    "leagues": ["Premier League", "MLS", "Major League Soccer"],
+    "partners": ["John Terry", "Didier Drogba", "Ashley Cole", "Petr Cech", "Eden Hazard", "Arjen Robben", "Wayne Rooney", "Steven Gerrard", "David Beckham", "Sergio Aguero", "David Silva", "Joe Cole", "Michael Ballack", "Michael Essien", "Claude Makelele", "Rio Ferdinand", "Frank Lampard"]
+  },
+  {
+    "name": "Eden Hazard",
+    "synonyms": ["hazard", "eden hazard", "e. hazard"],
+    "nationality": "Belgium",
+    "clubs": ["Lille", "Chelsea", "Real Madrid"],
+    "managers": ["Jose Mourinho", "Antonio Conte", "Maurizio Sarri", "Zinedine Zidane", "Carlo Ancelotti", "Roberto Martinez"],
+    "trophies": ["Premier League", "La Liga", "Champions League", "Ligue 1", "Europa League", "FA Cup", "League Cup", "Copa del Rey"],
+    "leagues": ["Ligue 1", "Premier League", "La Liga"],
+    "partners": ["Didier Drogba", "John Terry", "Frank Lampard", "Diego Costa", "Cesc Fabregas", "N'Golo Kante", "Karim Benzema", "Luka Modric", "Toni Kroos", "Thibaut Courtois", "Kevin De Bruyne", "Romelu Lukaku", "William", "Oscar", "Gary Cahill", "Branislav Ivanovic"]
+  },
+  {
+    "name": "Cole Palmer",
+    "synonyms": ["palmer", "cole palmer", "c. palmer"],
+    "nationality": "England",
+    "clubs": ["Manchester City", "Chelsea"],
+    "managers": ["Pep Guardiola", "Mauricio Pochettino", "Enzo Maresca", "Gareth Southgate"],
+    "trophies": ["Champions League", "Premier League", "Club World Cup", "UEFA Super Cup"],
+    "leagues": ["Premier League"],
+    "partners": ["Erling Haaland", "Kevin De Bruyne", "Phil Foden", "Bernardo Silva", "Rodri", "Enzo Fernandez", "Nicolas Jackson", "Mykhailo Mudryk", "Bukayo Saka", "Harry Kane", "Jude Bellingham", "Raheem Sterling", "Levi Colwill", "Conor Gallagher"]
+  },
+  {
+    "name": "Erling Haaland",
+    "synonyms": ["haaland", "erling haaland", "e. haaland"],
+    "nationality": "Norway",
+    "clubs": ["Bryne", "Molde", "Salzburg", "Red Bull Salzburg", "Borussia Dortmund", "Dortmund", "Manchester City"],
+    "managers": ["Ole Gunnar Solskjaer", "Marco Rose", "Lucien Favre", "Pep Guardiola", "Stale Solbakken"],
+    "trophies": ["Premier League", "Champions League", "FA Cup", "Austrian Bundesliga", "DFB Pokal", "Bundesliga Pokal", "Golden Boot", "UEFA Champions League"],
+    "leagues": ["Austrian Bundesliga", "Bundesliga", "Premier League"],
+    "partners": ["Jude Bellingham", "Marco Reus", "Jadon Sancho", "Kevin De Bruyne", "Phil Foden", "Bernardo Silva", "Rodri", "Jack Grealish", "Julian Alvarez", "Martin Odegaard", "John Stones", "Ruben Dias", "Manuel Akanji", "Nathan Ake", "Kyle Walker"]
+  },
+  {
+    "name": "Kevin De Bruyne",
+    "synonyms": ["de bruyne", "kevin de bruyne", "kdb", "k. de bruyne"],
+    "nationality": "Belgium",
+    "clubs": ["Genk", "Chelsea", "Werder Bremen", "Wolfsburg", "Borussia Wolfsburg", "Manchester City"],
+    "managers": ["Jose Mourinho", "Dieter Hecking", "Pep Guardiola", "Roberto Martinez", "Domenico Tedesco"],
+    "trophies": ["Premier League", "Champions League", "FA Cup", "DFB Pokal", "DFL Supercup", "Belgian Pro League", "UEFA Champions League"],
+    "leagues": ["Belgian Pro League", "Bundesliga", "Premier League"],
+    "partners": ["Eden Hazard", "Romelu Lukaku", "Thibaut Courtois", "Sergio Aguero", "David Silva", "Vincent Kompany", "Yaya Toure", "Erling Haaland", "Phil Foden", "Rodri", "Bernardo Silva", "Raheem Sterling", "Fernandinho", "Riyad Mahrez", "Ilkay Gundogan", "John Stones", "Kyle Walker"]
+  },
+  {
+    "name": "Karim Benzema",
+    "synonyms": ["benzema", "karim benzema", "k. benzema"],
+    "nationality": "France",
+    "clubs": ["Lyon", "Olympique Lyonnais", "Real Madrid", "Al Ittihad", "Al-Ittihad"],
+    "managers": ["Jose Mourinho", "Carlo Ancelotti", "Zinedine Zidane", "Rafa Benitez", "Didier Deschamps", "Claude Puel", "Laurent Blanc"],
+    "trophies": ["Ballon d'Or", "Champions League", "La Liga", "Ligue 1", "Copa del Rey", "FIFA Club World Cup", "UEFA Champions League"],
+    "leagues": ["Ligue 1", "La Liga", "Saudi Pro League"],
+    "partners": ["Cristiano Ronaldo", "Gareth Bale", "Luka Modric", "Toni Kroos", "Casemiro", "Kylian Mbappe", "Antoine Griezmann", "Thierry Henry", "Vinicius Junior", "Rodrygo", "Eduardo Camavinga", "Aurelien Tchouameni", "Hugo Lloris", "Raphael Varane", "N'Golo Kante", "Fabinho"]
+  },
+  {
+    "name": "Thierry Henry",
+    "synonyms": ["henry", "thierry henry", "t. henry"],
+    "nationality": "France",
+    "clubs": ["Monaco", "Monaco FC", "Juventus", "Arsenal", "Barcelona", "FC Barcelona", "New York Red Bulls"],
+    "managers": ["Arsene Wenger", "Pep Guardiola", "Raymond Domenech", "Carlo Ancelotti", "Marcello Lippi", "Frank Rijkaard", "Aimé Jacquet", "Roger Lemerre"],
+    "trophies": ["World Cup", "Euros", "UEFA European Championship", "Champions League", "Premier League", "La Liga", "Ligue 1", "MLS Supporters' Shield", "FA Cup", "Copa del Rey", "UEFA Champions League"],
+    "leagues": ["Ligue 1", "Serie A", "Premier League", "La Liga", "MLS", "Major League Soccer"],
+    "partners": ["Dennis Bergkamp", "Robert Pires", "Patrick Vieira", "Lionel Messi", "Ronaldinho", "Samuel Eto'o", "Andres Iniesta", "Xavi", "Zinedine Zidane", "Patrick Vieira", "Robert Pires", "William Gallas", "Nicolas Anelka", "David Trezeguet", "Cesc Fabregas", "Petr Cech", "Carles Puyol", "Gerard Pique"]
+  },
+  {
+    "name": "John Terry",
+    "synonyms": ["terry", "john terry", "j. terry"],
+    "nationality": "England",
+    "clubs": ["Chelsea", "Nottingham Forest", "Aston Villa"],
+    "managers": ["Jose Mourinho", "Carlo Ancelotti", "Claudio Ranieri", "Guus Hiddink", "Roberto Di Matteo", "Sven-Goran Eriksson", "Fabio Capello", "Steve Bruce", "Rafael Benitez"],
+    "trophies": ["Premier League", "Champions League", "FA Cup", "League Cup", "Europa League", "Community Shield"],
+    "leagues": ["Premier League", "Championship"],
+    "partners": ["Frank Lampard", "Didier Drogba", "Ashley Cole", "Petr Cech", "Eden Hazard", "Arjen Robben", "Wayne Rooney", "Steven Gerrard", "David Beckham", "Michael Ballack", "Michael Essien", "Claude Makelele", "Joe Cole", "Ricardo Carvalho", "Branislav Ivanovic"]
+  },
+  {
+    "name": "Didier Drogba",
+    "synonyms": ["drogba", "didier drogba", "d. drogba"],
+    "nationality": "Ivory Coast",
+    "clubs": ["Le Mans", "Guingamp", "Marseille", "Chelsea", "Shanghai Shenhua", "Galatasaray", "Montreal Impact", "Phoenix Rising"],
+    "managers": ["Jose Mourinho", "Carlo Ancelotti", "Guus Hiddink", "Roberto Di Matteo", "Fatih Terim", "Mancini", "Claude Puel", "Scolari"],
+    "trophies": ["Premier League", "Champions League", "FA Cup", "League Cup", "Super Lig", "Turkish Cup"],
+    "leagues": ["Ligue 1", "Premier League", "Chinese Super League", "Super Lig", "MLS"],
+    "partners": ["Frank Lampard", "John Terry", "Ashley Cole", "Petr Cech", "Eden Hazard", "Arjen Robben", "Michael Essien", "Yaya Toure", "Kolo Toure", "Wesley Sneijder", "Florent Malouda", "Nicolas Anelka", "Salomon Kalou", "John Obi Mikel"]
+  },
+  {
+    "name": "Dennis Bergkamp",
+    "synonyms": ["bergkamp", "dennis bergkamp", "d. bergkamp"],
+    "nationality": "Netherlands",
+    "clubs": ["Ajax", "Inter Milan", "Inter", "Arsenal"],
+    "managers": ["Arsene Wenger", "Johan Cruyff", "Louis van Gaal", "Guus Hiddink", "Dick Advocaat", "Leo Beenhakker"],
+    "trophies": ["Premier League", "UEFA Cup", "Europa League", "FA Cup", "Eredivisie", "Dutch Cup"],
+    "leagues": ["Eredivisie", "Serie A", "Premier League"],
+    "partners": ["Thierry Henry", "Patrick Vieira", "Robert Pires", "Ian Wright", "Tony Adams", "David Seaman", "Marc Overmars", "Clarence Seedorf", "Edgar Davids", "Marco van Basten", "Ruud Gullit", "Frank Rijkaard", "Ronald Koeman", "Edwin van der Sar"]
+  },
+  {
+    "name": "Steven Gerrard",
+    "synonyms": ["gerrard", "steven gerrard", "s. gerrard"],
+    "nationality": "England",
+    "clubs": ["Liverpool", "LA Galaxy"],
+    "managers": ["Gerard Houllier", "Rafa Benitez", "Roy Hodgson", "Kenny Dalglish", "Brendan Rodgers", "Sven-Goran Eriksson", "Fabio Capello", "Bruce Arena"],
+    "trophies": ["Champions League", "UEFA Cup", "Europa League", "FA Cup", "League Cup", "UEFA Super Cup"],
+    "leagues": ["Premier League", "MLS"],
+    "partners": ["Jamie Carragher", "Xabi Alonso", "Fernando Torres", "Luis Suarez", "Michael Owen", "Wayne Rooney", "Frank Lampard", "David Beckham", "John Terry", "Ashley Cole", "Rio Ferdinand", "Robbie Fowler", "Jordan Henderson", "Raheem Sterling", "Philippe Coutinho"]
+  },
+  {
+    "name": "N'Golo Kante",
+    "synonyms": ["kante", "n'golo kante", "n. kante", "ngolo kante"],
+    "nationality": "France",
+    "clubs": ["Boulogne", "Caen", "Leicester City", "Chelsea", "Al Ittihad", "Al-Ittihad"],
+    "managers": ["Claudio Ranieri", "Antonio Conte", "Maurizio Sarri", "Frank Lampard", "Thomas Tuchel", "Didier Deschamps", "Stephen Constantine"],
+    "trophies": ["World Cup", "Premier League", "Champions League", "Europa League", "FA Cup", "UEFA Champions League", "FIFA Club World Cup"],
+    "leagues": ["Ligue 1", "Premier League", "Saudi Pro League"],
+    "partners": ["Jamie Vardy", "Riyad Mahrez", "Kasper Schmeichel", "Eden Hazard", "Cesc Fabregas", "Diego Costa", "Antonio Rudiger", "Jorginho", "Mason Mount", "Kylian Mbappe", "Antoine Griezmann", "Paul Pogba", "Karim Benzema", "Fabinho", "Ruben Loftus-Cheek", "Kai Havertz"]
+  },
+  {
+    "name": "Virgil van Dijk",
+    "synonyms": ["van dijk", "virgil van dijk", "vvd", "v. van dijk"],
+    "nationality": "Netherlands",
+    "clubs": ["Groningen", "Celtic", "Southampton", "Liverpool"],
+    "managers": ["Ron Jans", "Neil Lennon", "Ronald Koeman", "Claude Puel", "Mauricio Pellegrino", "Jurgen Klopp", "Arne Slot", "Louis van Gaal", "Ronald Koeman"],
+    "trophies": ["Premier League", "Champions League", "FA Cup", "League Cup", "Scottish Premiership", "UEFA Champions League", "FIFA Club World Cup", "Club World Cup"],
+    "leagues": ["Eredivisie", "Scottish Premiership", "Premier League"],
+    "partners": ["Mohamed Salah", "Sadio Mane", "Roberto Firmino", "Alisson Becker", "Trent Alexander-Arnold", "Andy Robertson", "Jordan Henderson", "Frenkie de Jong", "Matthijs de Ligt", "Memphis Depay", "Georginio Wijnaldum"]
+  },
+  {
+    "name": "Mohamed Salah",
+    "synonyms": ["salah", "mohamed salah", "mo salah", "m. salah"],
+    "nationality": "Egypt",
+    "clubs": ["El Mokawloon", "Basel", "Chelsea", "Fiorentina", "Roma", "AS Roma", "Liverpool"],
+    "managers": ["Jose Mourinho", "Vincenzo Montella", "Luciano Spalletti", "Jurgen Klopp", "Arne Slot"],
+    "trophies": ["Premier League", "Champions League", "FA Cup", "League Cup", "Swiss Super League", "Club World Cup", "UEFA Champions League", "FIFA Club World Cup"],
+    "leagues": ["Swiss Super League", "Premier League", "Serie A"],
+    "partners": ["Sadio Mane", "Roberto Firmino", "Virgil van Dijk", "Alisson Becker", "Trent Alexander-Arnold", "Andy Robertson", "Jordan Henderson", "Eden Hazard", "John Terry", "Frank Lampard", "Francesco Totti", "Daniele De Rossi", "Edin Dzeko", "Radja Nainggolan"]
+  },
+  {
+    "name": "Luka Modric",
+    "synonyms": ["modric", "luka modric", "l. modric"],
+    "nationality": "Croatia",
+    "clubs": ["Dinamo Zagreb", "Zrinjski Mostar", "Inter Zapresic", "Tottenham Hotspur", "Tottenham", "Real Madrid"],
+    "managers": ["Harry Redknapp", "Jose Mourinho", "Carlo Ancelotti", "Zinedine Zidane", "Rafa Benitez", "Julen Lopetegui", "Zlatko Dalic"],
+    "trophies": ["Ballon d'Or", "Champions League", "La Liga", "Copa del Rey", "Prva HNL", "FIFA Club World Cup", "UEFA Champions League"],
+    "leagues": ["Prva HNL", "Premier League", "La Liga"],
+    "partners": ["Cristiano Ronaldo", "Karim Benzema", "Gareth Bale", "Toni Kroos", "Casemiro", "Thibaut Courtois", "Sergio Ramos", "Marcelo", "Vinicius Junior", "Rodrygo", "Ivan Rakitic", "Ivan Perisic", "Gareth Bale", "Rafael van der Vaart", "Harry Kane", "Son Heung-min"]
+  },
+  {
+    "name": "Toni Kroos",
+    "synonyms": ["kroos", "toni kroos", "t. kroos"],
+    "nationality": "Germany",
+    "clubs": ["Bayern Munich", "Bayer Leverkusen", "Real Madrid"],
+    "managers": ["Jupp Heynckes", "Louis van Gaal", "Pep Guardiola", "Carlo Ancelotti", "Zinedine Zidane", "Rafa Benitez", "Joachim Low", "Julian Nagelsmann"],
+    "trophies": ["World Cup", "Champions League", "La Liga", "Bundesliga", "DFB Pokal", "Copa del Rey", "FIFA Club World Cup", "UEFA Champions League"],
+    "leagues": ["Bundesliga", "La Liga"],
+    "partners": ["Cristiano Ronaldo", "Karim Benzema", "Gareth Bale", "Luka Modric", "Casemiro", "Sergio Ramos", "Marcelo", "Thibaut Courtois", "Vinicius Junior", "Rodrygo", "Thomas Muller", "Manuel Neuer", "Philipp Lahm", "Bastian Schweinsteiger", "Arjen Robben", "Franck Ribery"]
+  }
+]

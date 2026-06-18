@@ -1,0 +1,8 @@
+{
+  "name": "GridBlitz Trivia Arena",
+  "description": "An immersive multi-mode trivia game featuring Football, Music, and Cinema modes across interactive grids, Wikipedia-style career path puzzles, Tenable category boards, and card blitzes.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
