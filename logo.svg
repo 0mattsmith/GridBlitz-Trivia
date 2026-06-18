@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </radialGradient>
+    <linearGradient id="glowPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="glowGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Solid background -->
+  <rect width="512" height="512" rx="100" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative Grid Layer -->
+  <g stroke="rgba(255,255,255,0.06)" stroke-width="2">
+    <line x1="128" y1="0" x2="128" y2="512"/>
+    <line x1="256" y1="0" x2="256" y2="512"/>
+    <line x1="384" y1="0" x2="384" y2="512"/>
+    <line x1="0" y1="128" x2="512" y2="128"/>
+    <line x1="0" y1="256" x2="512" y2="256"/>
+    <line x1="0" y1="384" x2="512" y2="384"/>
+  </g>
+  
+  <!-- Glowing neon grid accents -->
+  <rect x="128" y="128" width="256" height="256" rx="16" fill="none" stroke="url(#glowPurple)" stroke-width="8" opacity="0.85"/>
+  <rect x="160" y="160" width="192" height="192" rx="12" fill="none" stroke="url(#glowGreen)" stroke-width="4" opacity="0.6"/>
+
+  <!-- Star accents -->
+  <path d="M 128 90 L 132 100 L 142 100 L 134 106 L 137 116 L 128 110 L 119 116 L 122 106 L 114 100 L 124 100 Z" fill="#fbbf24"/>
+  <path d="M 384 410 L 388 420 L 398 420 L 390 426 L 393 436 L 384 430 L 375 436 L 378 426 L 370 420 L 380 420 Z" fill="#fbbf24"/>
+
+  <!-- Champion cup gold trophy in center -->
+  <g transform="translate(196, 176)">
+    <!-- Base -->
+    <path d="M 24 120 L 96 120 L 84 140 L 36 140 Z" fill="url(#gold)"/>
+    <rect x="48" y="100" width="24" height="20" rx="3" fill="url(#gold)"/>
+    
+    <!-- Cup body -->
+    <path d="M 12 24 L 108 24 L 96 90 A 36 36 0 0 1 24 90 Z" fill="url(#gold)"/>
+    
+    <!-- Handles -->
+    <path d="M 12 36 C -12 30 -6 70 20 70" fill="none" stroke="url(#gold)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M 108 36 C 132 30 126 70 100 70" fill="none" stroke="url(#gold)" stroke-width="12" stroke-linecap="round"/>
+    
+    <!-- Star on cup -->
+    <path d="M 60 40 L 63 48 L 71 48 L 65 53 L 67 61 L 60 56 L 53 61 L 55 53 L 49 48 L 57 48 Z" fill="#1e293b"/>
+  </g>
+  
+  <!-- Text Label -->
+  <text x="256" y="475" font-family="'Inter', sans-serif" font-size="34" font-weight="900" letter-spacing="1.5" fill="#f8fafc" text-anchor="middle" style="text-transform: uppercase;">GridBlitz</text>
+</svg>
