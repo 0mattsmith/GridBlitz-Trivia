@@ -110,7 +110,7 @@ function findFootballerInCache(name) {
   });
   return found || null;
 }
-var PORT = 3e3;
+var PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3e3;
 var aiClient = null;
 function getGemini() {
   const apiKey = process.env.GEMINI_API_KEY;
