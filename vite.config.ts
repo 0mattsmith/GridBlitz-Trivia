@@ -7,6 +7,9 @@ export default defineConfig(() => {
   return {
     base: './',
     plugins: [react(), tailwindcss()],
+    build: {
+      chunkSizeWarningLimit: 1600,
+    },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
