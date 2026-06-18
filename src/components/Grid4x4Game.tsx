@@ -664,7 +664,7 @@ export default function Grid4x4Game({ theme }: { theme: string }) {
           </AnimatePresence>
 
           {/* Grid canvas layout */}
-          <div className="bg-slate-100 border-2 border-slate-250 p-4 rounded-2xl shadow-inner grid grid-cols-2 sm:grid-cols-4 gap-3 relative min-h-[460px]">
+          <div className="bg-slate-100 border-2 border-slate-250 p-4 rounded-2xl shadow-inner grid grid-cols-4 gap-3 relative min-h-[460px]">
             
             {/* Show victory fireworks overlay */}
             {gameWon && (

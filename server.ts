@@ -146,6 +146,122 @@ function getGemini() {
   return aiClient;
 }
 
+
+// ==========================================
+// REAL-TIME WIKIPEDIA GROUND-TRUTH FETCHING & PARSING
+// ==========================================
+async function fetchWikipediaDataForPlayer(playerName: string, theme: string = "football"): Promise<{ title: string; summary: string; infoboxText: string } | null> {
+  try {
+    let searchQuery = playerName;
+    if (theme === "football") {
+      searchQuery = playerName + " footballer";
+    } else if (theme === "music") {
+      searchQuery = playerName + " musician singer";
+    } else if (theme === "movies") {
+      searchQuery = playerName + " actor director filmmaker";
+    }
+
+    console.log(`[Wikipedia API] Searching for article matching: "${searchQuery}"`);
+    const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(searchQuery)}&utf8=1&format=json&origin=*`;
+    const searchRes = await fetch(searchUrl);
+    if (!searchRes.ok) return null;
+    const searchData = await searchRes.json() as any;
+    
+    if (!searchData.query || !searchData.query.search || searchData.query.search.length === 0) {
+      console.log(`[Wikipedia API] No results found with suffix. Querying raw input name: "${playerName}"`);
+      const backupSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(playerName)}&utf8=1&format=json&origin=*`;
+      const backupRes = await fetch(backupSearchUrl);
+      if (!backupRes.ok) return null;
+      const backupData = await backupRes.json() as any;
+      if (!backupData.query || !backupData.query.search || backupData.query.search.length === 0) {
+        return null;
+      }
+      searchData.query = backupData.query;
+    }
+
+    const bestMatch = searchData.query.search[0];
+    const title = bestMatch.title;
+    console.log(`[Wikipedia API] Best match found title: "${title}"`);
+
+    // Fetch page summary
+    const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`;
+    let summaryText = "";
+    try {
+      const summaryRes = await fetch(summaryUrl);
+      if (summaryRes.ok) {
+        const summaryData = await summaryRes.json() as any;
+        summaryText = summaryData.extract || "";
+      }
+    } catch (e) {
+      console.warn("Rest summary API failed:", e);
+    }
+
+    // Fetch parsed Section 0 (Infobox + Lead Paragraph)
+    const parseUrl = `https://en.wikipedia.org/w/api.php?action=parse&page=${encodeURIComponent(title)}&prop=text&section=0&format=json&origin=*`;
+    let infoboxContent = "";
+    try {
+      const parseRes = await fetch(parseUrl);
+      if (parseRes.ok) {
+        const parseData = await parseRes.json() as any;
+        if (parseData.parse && parseData.parse.text) {
+          const rawHtml = parseData.parse.text["*"] || "";
+          infoboxContent = cleanInfoboxHtml(rawHtml);
+          console.log(`[Wikipedia API] Successfully fetched and cleaned Section 0 infobox list attributes.`);
+        }
+      }
+    } catch (e) {
+      console.warn("Section 0 parse API failed:", e);
+    }
+
+    if (!infoboxContent) {
+      console.log(`[Wikipedia API] Infobox parse was empty, falling back to page extract text.`);
+      const extractUrl = `https://en.wikipedia.org/w/api.php?action=query&prop=extracts&exintro=true&explaintext=true&titles=${encodeURIComponent(title)}&format=json&origin=*`;
+      try {
+        const extractRes = await fetch(extractUrl);
+        if (extractRes.ok) {
+          const extractData = await extractRes.json() as any;
+          if (extractData.query && extractData.query.pages) {
+            const pageId = Object.keys(extractData.query.pages)[0];
+            infoboxContent = extractData.query.pages[pageId].extract || "";
+          }
+        }
+      } catch (e) {
+        console.warn("Extract API failed:", e);
+      }
+    }
+
+    return {
+      title,
+      summary: summaryText,
+      infoboxText: infoboxContent
+    };
+  } catch (err) {
+    console.error("fetchWikipediaDataForPlayer error:", err);
+    return null;
+  }
+}
+
+function cleanInfoboxHtml(html: string): string {
+  // Strip <style>, <script>, stylesheets
+  let clean = html.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "");
+  clean = clean.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "");
+  
+  // Format rows, cells and table tags as friendly lists
+  clean = clean.replace(/<tr[^>]*>/gi, "\n[Row]: ");
+  clean = clean.replace(/<td[^>]*>/gi, " | ");
+  clean = clean.replace(/<th[^>]*>/gi, " | ");
+  
+  // Strip remaining HTML tags
+  clean = clean.replace(/<[^>]+>/g, " ");
+  
+  // Clean duplicate whitespaces
+  clean = clean.replace(/[ \t]+/g, " ");
+  clean = clean.replace(/\n\s*\n+/g, "\n");
+  
+  return clean.substring(0, 8000).trim();
+}
+
+
 // ==========================================
 // PRE-CURATED DATA POOLS (For offline verification or instant starts)
 // ==========================================
@@ -2278,6 +2394,8 @@ app.post("/api/tic-tac-toe/verify", async (req, res) => {
   }
 
   try {
+    const wikiData = await fetchWikipediaDataForPlayer(playerName, theme);
+    
     let promptGenre = "";
     if (theme === "music") {
       promptGenre = `You are a music trivia master. Verify if the music artist (musician, band, singer, group, or producer) "${playerName}" satisfies BOTHCriterion 1 and Criterion 2.
@@ -2333,16 +2451,41 @@ app.post("/api/tic-tac-toe/verify", async (req, res) => {
     - "Partner": Shared senior football team on-field minutes with that player.`;
     }
 
+    let wikipediaGroundTruthStr = "";
+    if (wikiData) {
+      wikipediaGroundTruthStr = `
+=========================================
+OFFICIAL WIKIPEDIA ENTRY SOURCE OF TRUTH:
+=========================================
+You MUST use these verified real-time facts fetched from Wikipedia for this entity.
+Article Title: "${wikiData.title}"
+Intro Paragraph: "${wikiData.summary}"
+Infobox Data / Career Log:
+${wikiData.infoboxText}
+
+TRUTH DIRECTIVES:
+1. Verify if this data explicitly states or confirms the player meets BOTH criteria:
+   - Row criteria: ${rowCriteria.type} = "${rowCriteria.value}"
+   - Col criteria: ${colCriteria.type} = "${colCriteria.value}"
+   (e.g., if checking Club, verify they played senior competitive matches for them as listed in the career tables or text).
+2. Ground all decisions strictly on these facts. Do not guess or hallucinate any details.
+3. Fully extract and fill all attributes in the "foundPlayerProfile" based on the facts in the text above!
+=========================================
+`;
+    }
+
     const prompt = `${promptGenre}
 
+    ${wikipediaGroundTruthStr}
+
     CRITICAL TRUTH & FACT-CHECKING RULES:
-    1. Double check all facts thoroughly against your historical knowledge. NEVER assume, guess, or hallucinate relationships.
-    2. Footballers must have played in at least ONE official senior competitive first-team match for the specified "Club" or "League". Dida NEVER under any circumstances played for Bayern Munich. If a player did not make a physical competitive senior first-team appearance for that club, they fail.
+    1. Double check all facts thoroughly against your historical knowledge and the Wikipedia details provided. NEVER assume, guess, or hallucinate relationships.
+    2. Footballers must have played in at least ONE official senior competitive first-team match for the specified "Club" or "League". If a player did not make a physical competitive senior first-team appearance for that club, they fail.
     3. Musicians and Movie performers must have actually been associated, released, directed, or won specified awards.
     4. Resolve spelling typo approximations to the CORRECT canonical spelling of the player/entity (e.g. resolve "Kruyff" to "Johan Cruyff", "Cruyff" to "Johan Cruyff", "Dida" to "Dida"). In the response "foundPlayerProfile" and "correctName", you MUST use the corrected canonical spelling, never the spelling typos.
     5. Prioritize extreme historical precision. If there is even a sliver of doubt, return success as FALSE.
 
-    In addition, please resolve and extract the player's comprehensive profile structure so we can save it to our instantaneous local database (only if they are a real football player). Resolve their correct canonical spelling (e.g. "messi" to "Lionel Messi" or "swift" to "Taylor Swift").
+    In addition, please resolve and extract the player's comprehensive profile structure so we can save it to our instantaneous local database (only if they are a real football player). Resolve their correct canonical spelling (e.g. "messi" to "Lionel Messi" or "swift" to "Taylor Swift"). Make sure to extract ALL clubs, managers, trophies, leagues, and partners/teammates specified in the text/infobox so it is compiled for our local records!
     
     Provide a strict JSON response. Spell-check and use the canonical name in clarification.
     
@@ -3115,25 +3258,62 @@ app.post("/api/dispute", async (req, res) => {
     if (gameType === "tic-tac-toe") {
       const { playerName, rowCriteria, colCriteria, theme = "football" } = params;
       const courtName = theme === "music" ? "Supreme Court of Music Critics" : (theme === "movies" ? "Supreme Court of Film Historians" : "Supreme Court of Football Referees");
+      
+      const wikiData = await fetchWikipediaDataForPlayer(playerName, theme);
+      let wikipediaGroundTruthStr = "";
+      if (wikiData) {
+        wikipediaGroundTruthStr = `
+=========================================
+OFFICIAL WIKIPEDIA ENTRY SOURCE OF TRUTH:
+=========================================
+You MUST use these verified real-time facts fetched from Wikipedia for this entity.
+Article Title: "${wikiData.title}"
+Intro Paragraph: "${wikiData.summary}"
+Infobox Data / Career Log:
+${wikiData.infoboxText}
+
+TRUTH DIRECTIVES:
+1. Verify if this data explicitly states or confirms the player/entity meets BOTH criteria:
+   - Row criteria: ${rowCriteria.type} = "${rowCriteria.value}"
+   - Col criteria: ${colCriteria.type} = "${colCriteria.value}"
+   (e.g., if checking Club, verify they played senior competitive matches for them as listed in the career tables or text).
+2. Ground all decisions strictly on these facts. Do not guess or hallucinate any details.
+=========================================
+`;
+      }
+
       const prompt = `You are the ${courtName}. An active player/user is disputing a negative validation in a trivia grid game!
       The player guessed: "${playerName}"
       For the grid cell with criteria:
       - Criterion 1: ${rowCriteria.type} of "${rowCriteria.value}"
       - Criterion 2: ${colCriteria.type} of "${colCriteria.value}"
 
+      ${wikipediaGroundTruthStr}
+
       Originally, this was marked as WRONG/INCORRECT. The player insists they are correct.
       
       ${userExplanation ? `The user provided this explanatory note / proof context: "${userExplanation}". Take this explanation into serious clinical consideration when performing your research.` : ""}
 
-      Deeply research if this is a valid answer.
+      Deeply research if this is a valid answer using the Wikipedia ground truth source of truth provided first.
       Should "${playerName}" actually be recognized as correct?
+      
+      If their dispute is validated as CORRECT, please also resolve and extract the player's comprehensive profile structure so we can save it to our instantaneous local database. Resolve their correct canonical spelling (e.g. "messi" to "Lionel Messi" or "swift" to "Taylor Swift"). Make sure to extract ALL clubs (including those listed in Wikipedia), managers, trophies, leagues, and partners/teammates specified in the text/infobox so it is compiled for our local records!
 
       Respond in STRICT JSON format matching the schema.
       
       JSON Schema:
       {
         "actualCorrect": boolean,
-        "proof": string (a short, clear, objective paragraph proving details on why they definitely match or do not match, citing specific years, matches or stats.)
+        "proof": string (a short, clear, objective paragraph proving details on why they definitely match or do not match, citing specific years, matches or stats.),
+        "foundPlayerProfile": {
+          "name": string,
+          "nationality": string,
+          "clubs": string[],
+          "managers": string[],
+          "trophies": string[],
+          "leagues": string[],
+          "partners": string[]
+        }
       }`;
 
       const response = await ai.models.generateContent({
@@ -3147,7 +3327,20 @@ app.post("/api/dispute", async (req, res) => {
             required: ["actualCorrect", "proof"],
             properties: {
               actualCorrect: { type: Type.BOOLEAN },
-              proof: { type: Type.STRING }
+              proof: { type: Type.STRING },
+              foundPlayerProfile: {
+                type: Type.OBJECT,
+                required: ["name", "nationality", "clubs", "managers", "trophies", "leagues", "partners"],
+                properties: {
+                  name: { type: Type.STRING },
+                  nationality: { type: Type.STRING },
+                  clubs: { type: Type.ARRAY, items: { type: Type.STRING } },
+                  managers: { type: Type.ARRAY, items: { type: Type.STRING } },
+                  trophies: { type: Type.ARRAY, items: { type: Type.STRING } },
+                  leagues: { type: Type.ARRAY, items: { type: Type.STRING } },
+                  partners: { type: Type.ARRAY, items: { type: Type.STRING } }
+                }
+              }
             }
           }
         }
@@ -3156,59 +3349,42 @@ app.post("/api/dispute", async (req, res) => {
       const disputeResult = JSON.parse(response.text.trim());
       
       // If the dispute was CORRECT, self-heal our local database cache so they match instantly next time!
-      if (disputeResult.actualCorrect && theme === "football") {
+      if (disputeResult.actualCorrect && theme === "football" && disputeResult.foundPlayerProfile) {
+        const profile = disputeResult.foundPlayerProfile;
         const normGuess = playerName.toLowerCase().trim();
-        let existing = findFootballerInCache(playerName);
+        const synonyms = Array.from(new Set([profile.name.toLowerCase().trim(), normGuess, ...(profile.synonyms || [])]));
+        
+        let existing = findFootballerInCache(profile.name) || findFootballerInCache(playerName);
         if (existing) {
-          if (rowCriteria.type === "Club" && !existing.clubs.some(c => c.toLowerCase().includes(rowCriteria.value.toLowerCase()))) {
-            existing.clubs.push(rowCriteria.value);
+          existing.clubs = Array.from(new Set([...existing.clubs, ...profile.clubs]));
+          existing.managers = Array.from(new Set([...existing.managers, ...profile.managers]));
+          existing.trophies = Array.from(new Set([...existing.trophies, ...profile.trophies]));
+          existing.leagues = Array.from(new Set([...existing.leagues, ...profile.leagues]));
+          existing.partners = Array.from(new Set([...existing.partners, ...profile.partners]));
+          if (!existing.synonyms.includes(normGuess)) {
+            existing.synonyms.push(normGuess);
           }
-          if (colCriteria.type === "Club" && !existing.clubs.some(c => c.toLowerCase().includes(colCriteria.value.toLowerCase()))) {
-            existing.clubs.push(colCriteria.value);
-          }
-          if (rowCriteria.type === "Nationality") existing.nationality = rowCriteria.value;
-          if (colCriteria.type === "Nationality") existing.nationality = colCriteria.value;
-          
-          if (rowCriteria.type === "Trophy" && !existing.trophies.some(t => t.toLowerCase().includes(rowCriteria.value.toLowerCase()))) existing.trophies.push(rowCriteria.value);
-          if (colCriteria.type === "Trophy" && !existing.trophies.some(t => t.toLowerCase().includes(colCriteria.value.toLowerCase()))) existing.trophies.push(colCriteria.value);
-          if (rowCriteria.type === "League" && !existing.leagues.some(l => l.toLowerCase().includes(rowCriteria.value.toLowerCase()))) existing.leagues.push(rowCriteria.value);
-          if (colCriteria.type === "League" && !existing.leagues.some(l => l.toLowerCase().includes(colCriteria.value.toLowerCase()))) existing.leagues.push(colCriteria.value);
-          if (rowCriteria.type === "Manager" && !existing.managers.some(m => m.toLowerCase().includes(rowCriteria.value.toLowerCase()))) existing.managers.push(rowCriteria.value);
-          if (colCriteria.type === "Manager" && !existing.managers.some(m => m.toLowerCase().includes(colCriteria.value.toLowerCase()))) existing.managers.push(colCriteria.value);
-          if (rowCriteria.type === "Partner" && !existing.partners.some(p => p.toLowerCase().includes(rowCriteria.value.toLowerCase()))) existing.partners.push(rowCriteria.value);
-          if (colCriteria.type === "Partner" && !existing.partners.some(p => p.toLowerCase().includes(colCriteria.value.toLowerCase()))) existing.partners.push(colCriteria.value);
         } else {
           // Add a new profile
           footballerCache.push({
-            name: playerName,
-            synonyms: [normGuess],
-            nationality: rowCriteria.type === "Nationality" ? rowCriteria.value : colCriteria.type === "Nationality" ? colCriteria.value : "Unknown",
-            clubs: [
-              ...(rowCriteria.type === "Club" ? [rowCriteria.value] : []),
-              ...(colCriteria.type === "Club" ? [colCriteria.value] : [])
-            ],
-            managers: [
-              ...(rowCriteria.type === "Manager" ? [rowCriteria.value] : []),
-              ...(colCriteria.type === "Manager" ? [colCriteria.value] : [])
-            ],
-            trophies: [
-              ...(rowCriteria.type === "Trophy" ? [rowCriteria.value] : []),
-              ...(colCriteria.type === "Trophy" ? [colCriteria.value] : [])
-            ],
-            leagues: [
-              ...(rowCriteria.type === "League" ? [rowCriteria.value] : []),
-              ...(colCriteria.type === "League" ? [colCriteria.value] : [])
-            ],
-            partners: [
-              ...(rowCriteria.type === "Partner" ? [rowCriteria.value] : []),
-              ...(colCriteria.type === "Partner" ? [colCriteria.value] : [])
-            ]
+            name: profile.name,
+            synonyms: synonyms,
+            nationality: profile.nationality,
+            clubs: profile.clubs,
+            managers: profile.managers,
+            trophies: profile.trophies,
+            leagues: profile.leagues,
+            partners: profile.partners
           });
         }
         saveDb();
       }
 
-      return res.json(disputeResult);
+      // Safeguard returned response keys to client expectation
+      return res.json({
+        actualCorrect: disputeResult.actualCorrect,
+        proof: disputeResult.proof
+      });
     } 
     
     else if (gameType === "tenable") {

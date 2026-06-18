@@ -94,7 +94,32 @@ const FOOTBALL_CANDIDATES: SpotleEntity[] = [
   { id: "f22", name: "Luis Díaz", debut: 2016, members: "Attacker", popularity: 25, gender: "Male", genre: "Premier League", nationality: "Colombia" },
   { id: "f23", name: "Phil Foden", debut: 2017, members: "Midfielder", popularity: 21, gender: "Male", genre: "Premier League", nationality: "England" },
   { id: "f24", name: "Martin Ødegaard", debut: 2014, members: "Midfielder", popularity: 23, gender: "Male", genre: "Premier League", nationality: "Norway" },
-  { id: "f25", name: "Alisson Becker", debut: 2013, members: "Goalkeeper", popularity: 24, gender: "Male", genre: "Premier League", nationality: "Brazil" }
+  { id: "f25", name: "Alisson Becker", debut: 2013, members: "Goalkeeper", popularity: 24, gender: "Male", genre: "Premier League", nationality: "Brazil" },
+  { id: "f26", name: "Cole Palmer", debut: 2020, members: "Midfielder", popularity: 26, gender: "Male", genre: "Premier League", nationality: "England" },
+  { id: "f27", name: "Lamine Yamal", debut: 2023, members: "Attacker", popularity: 27, gender: "Male", genre: "La Liga", nationality: "Spain" },
+  { id: "f28", name: "Florian Wirtz", debut: 2020, members: "Midfielder", popularity: 28, gender: "Male", genre: "Bundesliga", nationality: "Germany" },
+  { id: "f29", name: "Jamal Musiala", debut: 2020, members: "Midfielder", popularity: 29, gender: "Male", genre: "Bundesliga", nationality: "Germany" },
+  { id: "f30", name: "Christian Pulisic", debut: 2016, members: "Midfielder", popularity: 30, gender: "Male", genre: "Serie A", nationality: "USA" },
+  { id: "f31", name: "William Saliba", debut: 2018, members: "Defender", popularity: 31, gender: "Male", genre: "Premier League", nationality: "France" },
+  { id: "f32", name: "Pedri", debut: 2019, members: "Midfielder", popularity: 32, gender: "Male", genre: "La Liga", nationality: "Spain" },
+  { id: "f33", name: "Victor Osimhen", debut: 2017, members: "Attacker", popularity: 33, gender: "Male", genre: "Serie A", nationality: "Nigeria" },
+  { id: "f34", name: "Federico Valverde", debut: 2016, members: "Midfielder", popularity: 34, gender: "Male", genre: "La Liga", nationality: "Uruguay" },
+  { id: "f35", name: "Julián Álvarez", debut: 2018, members: "Attacker", popularity: 35, gender: "Male", genre: "La Liga", nationality: "Argentina" },
+  { id: "f36", name: "Lautaro Martínez", debut: 2015, members: "Attacker", popularity: 36, gender: "Male", genre: "Serie A", nationality: "Argentina" },
+  { id: "f37", name: "Enzo Fernández", debut: 2019, members: "Midfielder", popularity: 37, gender: "Male", genre: "Premier League", nationality: "Argentina" },
+  { id: "f38", name: "Gianluigi Donnarumma", debut: 2015, members: "Goalkeeper", popularity: 38, gender: "Male", genre: "Ligue 1", nationality: "Italy" },
+  { id: "f39", name: "Achraf Hakimi", debut: 2016, members: "Defender", popularity: 39, gender: "Male", genre: "Ligue 1", nationality: "Morocco" },
+  { id: "f40", name: "Rúben Dias", debut: 2015, members: "Defender", popularity: 40, gender: "Male", genre: "Premier League", nationality: "Portugal" },
+  { id: "f41", name: "Rafael Leão", debut: 2017, members: "Attacker", popularity: 41, gender: "Male", genre: "Serie A", nationality: "Portugal" },
+  { id: "f42", name: "Theo Hernández", debut: 2016, members: "Defender", popularity: 42, gender: "Male", genre: "Serie A", nationality: "France" },
+  { id: "f43", name: "Thibaut Courtois", debut: 2009, members: "Goalkeeper", popularity: 43, gender: "Male", genre: "La Liga", nationality: "Belgium" },
+  { id: "f44", name: "Emiliano Martínez", debut: 2011, members: "Goalkeeper", popularity: 44, gender: "Male", genre: "Premier League", nationality: "Argentina" },
+  { id: "f45", name: "Rodrygo", debut: 2017, members: "Attacker", popularity: 45, gender: "Male", genre: "La Liga", nationality: "Brazil" },
+  { id: "f46", name: "Nico Williams", debut: 2020, members: "Attacker", popularity: 46, gender: "Male", genre: "La Liga", nationality: "Spain" },
+  { id: "f47", name: "Antonio Rüdiger", debut: 2011, members: "Defender", popularity: 47, gender: "Male", genre: "La Liga", nationality: "Germany" },
+  { id: "f48", name: "Trent Alexander-Arnold", debut: 2016, members: "Defender", popularity: 48, gender: "Male", genre: "Premier League", nationality: "England" },
+  { id: "f49", name: "Neymar Jr", debut: 2009, members: "Attacker", popularity: 49, gender: "Male", genre: "Saudi Pro League", nationality: "Brazil" },
+  { id: "f50", name: "Luis Suárez", debut: 2005, members: "Attacker", popularity: 50, gender: "Male", genre: "MLS", nationality: "Uruguay" }
 ];
 
 const MOVIE_CANDIDATES: SpotleEntity[] = [
@@ -143,6 +168,11 @@ const COUNTRY_CONTINENT: { [key: string]: string } = {
   "Argentina": "South America",
   "Brazil": "South America",
   "Colombia": "South America",
+  "Uruguay": "South America",
+  "Nigeria": "Africa",
+  "Morocco": "Africa",
+  "Georgia": "Europe",
+  "Turkey": "Europe",
   "Barbados": "North America",
   "South Korea": "Asia",
   "Japan": "Asia",
@@ -165,10 +195,15 @@ const DIRECT_BORDERS: { [key: string]: string[] } = {
   'France': ['Spain', 'Italy', 'Germany', 'Belgium', 'Switzerland', 'UK'],
   'Germany': ['France', 'Austria', 'Switzerland', 'Poland', 'Denmark', 'Netherlands', 'Belgium'],
   'Portugal': ['Spain'],
-  'Spain': ['Portugal', 'France'],
+  'Spain': ['Portugal', 'France', 'Andorra', 'Gibraltar', 'Morocco'],
   'Argentina': ['Brazil', 'Chile', 'Uruguay', 'Paraguay', 'Bolivia'],
   'Brazil': ['Argentina', 'Colombia', 'Uruguay', 'Paraguay', 'Bolivia', 'Peru', 'Venezuela'],
-  'Colombia': ['Brazil', 'Venezuela', 'Ecuador', 'Peru', 'Panama']
+  'Colombia': ['Brazil', 'Venezuela', 'Ecuador', 'Peru', 'Panama'],
+  'Uruguay': ['Argentina', 'Brazil'],
+  'Nigeria': ['Niger', 'Cameroon', 'Benin', 'Chad'],
+  'Morocco': ['Algeria', 'Spain'],
+  'Georgia': ['Turkey', 'Russia', 'Armenia', 'Azerbaijan'],
+  'Turkey': ['Greece', 'Bulgaria', 'Georgia', 'Armenia', 'Azerbaijan', 'Iran', 'Iraq', 'Syria']
 };
 
 export default function SpotleGame({ theme = 'football' }: { theme?: 'football' | 'music' | 'movies' }) {
