@@ -2157,8 +2157,8 @@ function runOfflineVerify(playerName, rowCriteria, colCriteria, theme) {
     const atletico = ["griezmann", "godin", "koke", "oblak", "torres", "falcao", "costa", "turan", "suarez", "morata", "depay", "de paul", "llorente", "gimenez", "felipe", "herrera", "courtois", "saviola"];
     const liverpool = ["gerrard", "carragher", "owen", "torres", "suarez", "salah", "mane", "firmino", "henderson", "milner", "van dijk", "alisson", "alexander-arnold", "robertson", "fabinho", "wijnaldum", "jota", "diaz", "nunez", "coutinho"];
     const tottenham = ["kane", "son", "bale", "modric", "allie", "eriksen", "lloris", "vertonghen", "alderweireld", "rose", "walker", "dembele", "romero", "vicario", "maddison", "kulusevski", "bentancur"];
-    const inter = ["zanetti", "adriano", "sneijder", "eto", "milito", "martinez", "lukaku", "ibrahimovic", "ronaldo", "figo", "baresi", "materazzi", "chivu", "cambiasso", "maicon", "handanovic", "sommer", "thuram", "calhanoglu", "bastoni", "dimarco", "barella"];
-    const acmilan = ["maldini", "nesta", "silva", "dida", "ibrahimovic", "gattuso", "pirlo", "seedorf", "kaka", "shevchenko", "inzaghi", "ronaldinho", "beckham", "balotelli", "leao", "giroud", "hernandez", "maignan", "pulisic", "tomori", "loftus"];
+    const inter = ["zanetti", "adriano", "sneijder", "eto", "milito", "martinez", "lukaku", "ibrahimovic", "zlatan", "ronaldo", "r9", "figo", "baresi", "materazzi", "chivu", "cambiasso", "maicon", "handanovic", "sommer", "thuram", "calhanoglu", "hakan calhanoglu", "bastoni", "dimarco", "barella", "balotelli", "mario balotelli", "pirlo", "andrea pirlo", "seedorf", "clarence seedorf"];
+    const acmilan = ["maldini", "nesta", "silva", "dida", "ibrahimovic", "zlatan", "gattuso", "pirlo", "andrea pirlo", "seedorf", "clarence seedorf", "kaka", "shevchenko", "inzaghi", "ronaldinho", "beckham", "balotelli", "mario balotelli", "leao", "giroud", "hernandez", "maignan", "pulisic", "tomori", "loftus", "calhanoglu", "hakan calhanoglu", "r9", "ronaldo"];
     const isMatch = (array, name) => {
       return array.some((kw) => name.includes(kw));
     };
@@ -3131,9 +3131,64 @@ app.post("/api/dispute", async (req, res) => {
   const { gameType, userExplanation, ...params } = req.body;
   const ai = getGemini();
   if (!ai) {
+    if (gameType === "tic-tac-toe") {
+      const { playerName, rowCriteria, colCriteria, theme = "football" } = params;
+      const offlineResult = runOfflineVerify(playerName, rowCriteria, colCriteria, theme);
+      let actualPlayerName = playerName;
+      if (theme === "football") {
+        const cp = findFootballerInCache(playerName);
+        if (cp) actualPlayerName = cp.name;
+      }
+      return res.json({
+        actualCorrect: offlineResult.success,
+        proof: offlineResult.success ? `\u2B50 VAR Review Successful (Offline Fallback): Checked our local archives and confirmed that "${actualPlayerName}" successfully satisfies both "${rowCriteria.value}" and "${colCriteria.value}" requirements!` : `Dispute Rejected (Offline Fallback): Checked our local archives, but we could not verify that "${playerName}" satisfies both "${rowCriteria.value}" and "${colCriteria.value}".`
+      });
+    } else if (gameType === "tenable") {
+      const { guess, correctItems } = params;
+      if (!guess || !correctItems || !Array.isArray(correctItems)) {
+        return res.json({ actualCorrect: false, proof: "Could not retrieve list items to verify." });
+      }
+      const lowerG = guess.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const match = correctItems.find((item) => {
+        const normItem = item.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return normItem === lowerG || normItem.includes(lowerG) || lowerG.includes(normItem);
+      });
+      if (match) {
+        return res.json({
+          actualCorrect: true,
+          correctedValue: match,
+          proof: `\u2B50 VAR Review Successful (Offline Fallback): Checked local correct entries for this topic list and verified that "${guess}" successfully matches "${match}"!`
+        });
+      } else {
+        return res.json({
+          actualCorrect: false,
+          correctedValue: guess,
+          proof: `Dispute Rejected (Offline Fallback): Checked local correct entries for this topic, but "${guess}" does not match any valid alternate or listed item.`
+        });
+      }
+    } else if (gameType === "career-path" || gameType === "career") {
+      const { guess, trueName } = params;
+      if (!guess || !trueName) {
+        return res.json({ actualCorrect: false, proof: "Missing parameters to verify." });
+      }
+      const lowerG = guess.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const lowerT = trueName.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      const isMatch = lowerG === lowerT || lowerG.includes(lowerT) || lowerT.includes(lowerG);
+      if (isMatch) {
+        return res.json({
+          actualCorrect: true,
+          proof: `\u2B50 VAR Review Successful (Offline Fallback): Yes, our local spelling database confirms "${guess}" matches "${trueName}"!`
+        });
+      } else {
+        return res.json({
+          actualCorrect: false,
+          proof: `Dispute Rejected (Offline Fallback): Checked our local spelling database and was unable to link "${guess}" to "${trueName}".`
+        });
+      }
+    }
     return res.json({
       actualCorrect: false,
-      proof: "The AI Referee is currently offline. Deep verification cannot be completed without Gemini connection."
+      proof: "The AI Referee is offline. Deep verification cannot be completed without Gemini connection."
     });
   }
   try {
