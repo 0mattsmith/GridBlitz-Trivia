@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Grid3X3, ListOrdered, Landmark, Trophy, ShieldCheck, Mail, HelpCircle, Award, Layers } from 'lucide-react';
+import { Grid3X3, ListOrdered, Landmark, Trophy, ShieldCheck, Mail, HelpCircle, Award, Layers, Compass } from 'lucide-react';
 import TicTacToeGame from './components/TicTacToeGame';
 import TenableGame from './components/TenableGame';
 import CareerPathGame from './components/CareerPathGame';
 import LeaderboardsView from './components/LeaderboardsView';
 import TheFootballGame from './components/TheFootballGame';
+import SpotleGame from './components/SpotleGame';
 
 enum ActiveTab {
   TIC_TAC_TOE = 'tic_tac_toe',
   TENABLE = 'tenable',
   CAREER_PATH = 'career_path',
   THE_FOOTBALL_GAME = 'football_game',
+  CLUE_SPOTLE = 'clue_spotle',
   LEADERBOARD = 'leaderboard'
 }
 
@@ -130,7 +132,7 @@ export default function App() {
         </div>
 
         {/* Navigation Selector Tabs */}
-        <div className="w-full bg-white border border-slate-200 p-1.5 rounded-xl grid grid-cols-2 lg:grid-cols-5 gap-1 shadow-sm">
+        <div className="w-full bg-white border border-slate-200 p-1.5 rounded-xl grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-1 shadow-sm">
           <button
             onClick={() => setActiveTab(ActiveTab.TIC_TAC_TOE)}
             className={`py-3 px-2 rounded-lg text-xs sm:text-sm font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all cursor-pointer relative ${
@@ -200,6 +202,23 @@ export default function App() {
           </button>
 
           <button
+            onClick={() => setActiveTab(ActiveTab.CLUE_SPOTLE)}
+            className={`py-3 px-2 rounded-lg text-xs sm:text-sm font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all cursor-pointer relative ${
+              activeTab === ActiveTab.CLUE_SPOTLE
+                ? 'bg-slate-900 text-white shadow-md'
+                : 'text-slate-500 hover:text-slate-800 hover:bg-slate-50'
+            }`}
+          >
+            <Compass size={16} className={activeTab === ActiveTab.CLUE_SPOTLE ? getThemeAccentClass() : 'opacity-60'} />
+            <div className="flex flex-col sm:items-start leading-none text-center sm:text-left">
+              <span className="block font-sans text-xs sm:text-sm">Spotle / Clues</span>
+              <span className={`text-[8px] font-mono hidden md:block uppercase font-bold tracking-wider mt-0.5 ${
+                activeTab === ActiveTab.CLUE_SPOTLE ? getThemeTextClass() : 'text-slate-400'
+              }`}>10 Guesses Grid</span>
+            </div>
+          </button>
+
+          <button
             onClick={() => setActiveTab(ActiveTab.LEADERBOARD)}
             className={`py-3 px-2 rounded-lg text-xs sm:text-sm font-bold flex flex-col sm:flex-row items-center justify-center gap-2 transition-all cursor-pointer relative ${
               activeTab === ActiveTab.LEADERBOARD
@@ -232,6 +251,7 @@ export default function App() {
               {activeTab === ActiveTab.TENABLE && <TenableGame theme={activeTheme} />}
               {activeTab === ActiveTab.CAREER_PATH && <CareerPathGame theme={activeTheme} />}
               {activeTab === ActiveTab.THE_FOOTBALL_GAME && <TheFootballGame theme={activeTheme} />}
+              {activeTab === ActiveTab.CLUE_SPOTLE && <SpotleGame theme={activeTheme} />}
               {activeTab === ActiveTab.LEADERBOARD && <LeaderboardsView />}
             </motion.div>
           </AnimatePresence>
